@@ -1,0 +1,54 @@
+onloadname = "Hotfoot";
+author = Kolmain;
+OnLoadMission = "A BATTLE OF ATTRITION.";
+
+// ============================================================================================
+
+class Header
+{
+	gameType = TDM;
+	minPlayers = 1;
+	maxPlayers = 24;
+};
+
+// ============================================================================================
+
+respawn = "BASE";
+respawndelay = 10;
+disabledAI = 1;
+respawnDialog = 1;
+respawnTemplates[] = {"MenuInventory","MenuPosition","Wave","Counter","KOL_Hotfoot"};
+respawnOnStart = 1;
+aikills = 0;
+
+//Respawn Templates
+class CfgRespawnInventory
+{
+   #include "Roles.hpp"
+};
+
+
+class CfgRespawnTemplates
+{
+	class KOL_Hotfoot
+	{
+		// Function or script executed upon death. Parameters passed into it are the same as are passed into onPlayerKilled.sqf file
+		// [<oldUnit>, <killer>, <respawn>, <respawnDelay>]
+		onPlayerKilled = "KOL_fnc_onPlayerKilled";
+		// Function or script executed upon respawn. Parameters passed into it are the same as are passed into onPlayerRespawn.sqf file
+		// [<newUnit>, <oldUnit>, <respawn>, <respawnDelay>]
+		onPlayerRespawn = "KOL_fnc_onPlayerRespawn";
+
+	};
+	class Spectator
+	{
+		onPlayerRespawn = "BIS_fnc_respawnSpectator";
+	};
+};
+
+class RscTitles {
+	#include "ais_injury\dialogs\rscTitlesAIS.hpp"
+};
+class CfgFunctions {
+	#include "ais_injury\cfgFunctionsAIS.hpp"
+};
