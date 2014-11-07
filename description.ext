@@ -24,9 +24,10 @@ aikills = 0;
 //Respawn Templates
 class CfgRespawnInventory
 {
-   #include "Roles.hpp"
+   #include "includes\Roles.hpp"
 };
 
+ #include "includes\CfgCommunicationMenu.hpp"
 
 class CfgRespawnTemplates
 {
