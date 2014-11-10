@@ -33,7 +33,8 @@ switch (_grpSide) do {
 		_pickupPoint = pickupPoint_east;
 	};
 	case RESISTANCE: {
-		_ret = [getMarkerPos "arespawn_guerrila", 0, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		_ret = [getMarkerPos "arespawn_guerrila", 0, "I_Heli_light_03_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		//_ret = [getMarkerPos "arespawn_guerrila", 0, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
 		_heli = _ret select 0;
 		insertionChopper_guerrila = _heli;
 		_spawnPoint = getMarkerPos "arespawn_guerrila";
@@ -49,7 +50,45 @@ _heliDriver = driver _heli;
 _heliGrp = group _heliDriver;
 _heliDriver move _pickupPoint;
 _heli setVariable ["transportReady", false, true];
-while {alive _heli && canMove _heli} do 
+_heli lock 3;
+
+_empty = [_heli, _grpSide] spawn {
+	_heli = _this select 0;
+	_grpSide = _this select 1;
+	waitUntil {!(canMove _heli)};
+	_heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)];
+	{
+		
+		unassignVehicle _x;
+		//assault hard point
+		if (_x == (leader (group _x))) then {
+			deleteWaypoint [(group _x), all];
+			_attackWP =_spawnedGrp addWaypoint [hardpoint, 25];
+			_attackWP setWPPos hardpoint;
+			_attackWP setWaypointBehaviour "AWARE";
+			_attackWP setWaypointCombatMode "RED";
+			_attackWP setWaypointSpeed "NORMAL";
+			_attackWP setWaypointType "SAD";
+			_attackWP setWaypointFormation "DIAMOND";
+		};
+	} forEach assignedCargo _heli;
+	_attackWP2 = (group driver _heli) addWaypoint [hardpoint, 25];
+	_attackWP2 setWPPos hardpoint;
+	_attackWP2 setWaypointBehaviour "AWARE";
+	_attackWP2 setWaypointCombatMode "RED";
+	_attackWP2 setWaypointSpeed "NORMAL";
+	_attackWP2 setWaypointType "SAD";
+	_attackWP2 setWaypointFormation "DIAMOND";
+	if (!hotfoot_epilogue) then {
+		sleep 15;
+		_reset = [_grpSide] call KOL_fnc_createRespawnHeli;
+	} else {
+
+	};
+
+};
+_heli sideChat format["%1 is now servicing all transport requests, over.", groupID (group _heli)];
+while {alive _heli} do 
 {	
 	_heli sideChat format["%1 is heading back to FOB, over.", groupID (group _heli)];
 	_heli animateDoor ["doors", 0];
@@ -72,9 +111,9 @@ while {alive _heli && canMove _heli} do
 	
 	_unitsIn = 0;
 	_loop = true;
-	_takeOffAction = _heli addaction ["Take Off", { 
-		(_this select 0) setVariable ["transportReady", false, true];
-	}]; 
+	//_takeOffAction = _heli addaction ["Take Off", { 
+	//	(_this select 0) setVariable ["transportReady", false, true];
+	//}]; 
 	while {_loop} do {
 		_ready = _insertChopper getVariable "transportReady";
 		if (count assignedCargo _heli >= 8) then {
@@ -82,19 +121,19 @@ while {alive _heli && canMove _heli} do
 			_loop = false;
 		};
 		if (!_ready) then {
-			_heli sideChat format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)];
+			//_heli sideChat format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)];
 			sleep 10;
 			_loop = false;
 		} else {
 			if (count assignedCargo _heli >= 4) then {
-				_heli sideChat format["%1 is departing in 15 seconds with loaded troops, over.", groupID (group _heli)];
+				//_heli sideChat format["%1 is departing in 15 seconds with loaded troops, over.", groupID (group _heli)];
 				sleep 15;
 				_loop = false;
 			};
 		};
 	};
 	
-	_heli removeAction _takeOffAction;
+	//_heli removeAction _takeOffAction;
 	
 	if (KOL_debug) then {
 		{
@@ -124,12 +163,12 @@ while {alive _heli && canMove _heli} do
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
 	_heli sideChat format["%1 is heading to AO for insertion, over.", groupID (group _heli)];
-	_heliDriver disableAI "FSM";
-	_heliDriver disableAI "TARGET";
-	_heliDriver disableAI "AUTOTARGET";
+	//_heliDriver disableAI "FSM";
+	//_heliDriver disableAI "TARGET";
+	//_heliDriver disableAI "AUTOTARGET";
 	_heliDriver move _insertPoint;
-	_heliGrp setBehaviour "CARELESS";
-	_heliGrp setCombatMode "GREEN";
+	_heliGrp setBehaviour "AWARE";
+	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
 	waitUntil {(_heli distance _insertPoint < 150)};
@@ -166,21 +205,15 @@ while {alive _heli && canMove _heli} do
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
-	_heliDriver disableAI "FSM";
-	_heliDriver disableAI "TARGET";
-	_heliDriver disableAI "AUTOTARGET";
+	//_heliDriver disableAI "FSM";
+	//_heliDriver disableAI "TARGET";
+	//_heliDriver disableAI "AUTOTARGET";
 	_heliDriver move _pickupPoint;
-	_heliGrp setBehaviour "CARELESS";
-	_heliGrp setCombatMode "GREEN";
+	_heliGrp setBehaviour "AWARE";
+	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
 	
 };
 
-_heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)];
 
-if (!hotfoot_epilogue) then {
-	_reset = [_grpSide] call KOL_fnc_createRespawnHeli;
-} else {
-
-};
