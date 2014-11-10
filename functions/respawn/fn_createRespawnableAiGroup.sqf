@@ -40,6 +40,8 @@ switch (_grpSide) do {
 		_pickupPoint = pickupPoint_guerrila;
 	};
 };
+
+
 _empty = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
 
 {
@@ -61,55 +63,62 @@ _empty = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
 	}]
 }  forEach units _spawnedGrp; 
 
-{
-_x moveInCargo _spawnVehicle;
- unassignVehicle _x; 
- doGetOut _x;
- [_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf");
- } forEach units _spawnedGrp;
- 
-_standbyWP =_spawnedGrp addWaypoint [_standbyPos, 5];
-_standbyWP setWPPos _standbyPos;
-_standbyWP setWaypointBehaviour "AWARE";
-_standbyWP setWaypointCombatMode "RED";
-_standbyWP setWaypointSpeed "FULL";
-_standbyWP setWaypointType "MOVE";
-_standbyWP setWaypointFormation "DIAMOND";
+if (!hootfoot_intro) then {
 
-_loop = true;
-_ready = false;
-while {_loop} do {
-	_ready = _insertChopper getVariable "transportReady";
-	_assignedCount = count (assignedCargo _insertChopper);
-	if (_assignedCount >= 8) then {
+	{
+	_x moveInCargo _spawnVehicle;
+	 unassignVehicle _x; 
+	 doGetOut _x;
+	 //[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf");
+	 } forEach units _spawnedGrp;
+	 
+	_standbyWP =_spawnedGrp addWaypoint [_standbyPos, 5];
+	_standbyWP setWPPos _standbyPos;
+	_standbyWP setWaypointBehaviour "SAFE";
+	_standbyWP setWaypointCombatMode "RED";
+	_standbyWP setWaypointSpeed "NORMAL";
+	_standbyWP setWaypointType "MOVE";
+	_standbyWP setWaypointFormation "DIAMOND";
+
 	_loop = true;
-	} else {
-		if (_ready) then { _loop = false };
+	_ready = false;
+	while {_loop} do {
+		_ready = _insertChopper getVariable "transportReady";
+		_assignedCount = count (assignedCargo _insertChopper);
+		if (_assignedCount >= 8) then {
+		_loop = true;
+		} else {
+			if (_ready) then { _loop = false };
+		};
 	};
+
+	//get in chopper
+	deleteWaypoint _standbyWP;
+	{
+		_x assignAsCargo _insertChopper;
+		_x moveInCargo _insertChopper;
+		//[_x] allowGetIn true;
+		//[_x] orderGetIn true;
+	} forEach units _spawnedGrp;
+
+
+	//wait for chopper to land at ins
+	waitUntil {_insertChopper distance _insertPoint < 100};
+	waitUntil {(isTouchingGround _insertChopper)};
+	{
+		unassignVehicle _x;
+	} forEach units _spawnedGrp;
+	(leader _spawnedGrp) sideChat format["This is %1, we have entered the AO! Be advised, additional friendly forces are in the AO.", groupID _spawnedGrp];
+
+} else {
+	{
+	_x setPos _insertPoint;
+	 } forEach units _spawnedGrp;
 };
-
-//get in chopper
-deleteWaypoint _standbyWP;
-{
-	_x assignAsCargo _insertChopper;
-	//_x moveInCargo _insertChopper;
-	//[_x] allowGetIn true;
-	[_x] orderGetIn true;
-} forEach units _spawnedGrp;
-
-
-//wait for chopper to land at ins
-waitUntil {_insertChopper distance _insertPoint < 100};
-waitUntil {(isTouchingGround _insertChopper)};
-{
-	unassignVehicle _x;
-} forEach units _spawnedGrp;
-(leader _spawnedGrp) sideChat format["This is %1, we have entered the AO! Be advised, additional friendly forces are in the AO.", groupID _spawnedGrp];
-
 //assault hard point
 _attackWP =_spawnedGrp addWaypoint [_hardpoint, 25];
 _attackWP setWPPos _hardpoint;
-_attackWP setWaypointBehaviour "COMBAT";
+_attackWP setWaypointBehaviour "AWARE";
 _attackWP setWaypointCombatMode "RED";
 _attackWP setWaypointSpeed "NORMAL";
 _attackWP setWaypointType "SAD";
