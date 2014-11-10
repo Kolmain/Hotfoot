@@ -39,6 +39,7 @@ _crew = _retArray select 1;
 _heli = _retArray2 select 0;
 _heliCrew = _retArray2 select 1;
 _heliGrp = _retArray2 select 2;
+_heliDriver = driver _heli;
 
 {
 	_x assignAsCargo _vehicle;
@@ -47,4 +48,32 @@ _heliGrp = _retArray2 select 2;
 
 _heli setSlingLoad _vehicle;
 
+_heliDriver disableAI "FSM";
+_heliDriver disableAI "TARGET";
+_heliDriver disableAI "AUTOTARGET";
+_heliGrp setBehaviour "AWARE";
+_heliGrp setCombatMode "RED";
+_heliGrp setSpeedMode "NORMAL";
 
+_attackWP =_grp addWaypoint [_hardpoint, 25];
+_attackWP setWPPos _hardpoint;
+_attackWP setWaypointBehaviour "AWARE";
+_attackWP setWaypointCombatMode "RED";
+_attackWP setWaypointSpeed "NORMAL";
+_attackWP setWaypointType "SAD";
+_attackWP setWaypointFormation "DIAMOND";
+
+_heliDriver move _pos;
+_heli flyInHeight 150;
+_heli lock 3;
+
+waitUntil {(_heli distance _pos < 200)};
+_heli flyInHeight 0;
+_heli land "LAND";
+waitUntil {(isTouchingGround _vehicle)};
+{
+	ropeCut [ _x, 5];
+} forEach ropes _heli;
+
+_heliDriver move _pos;
+_heli flyInHeight 150;
