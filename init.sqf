@@ -20,6 +20,7 @@ if (!isDedicated) then {
 
 call compile preprocessfile "SHK_pos\shk_pos_init.sqf";
 KOL_fnc_createRespawnHeli = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeli.sqf";
+KOL_fnc_createRespawnHeliPlayer = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeliPlayer.sqf";
 KOL_fnc_createRespawnableAiGroup = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnableAiGroup.sqf";
 KOL_fnc_changePlayerLoadout = compile preprocessfilelinenumbers "functions\loadout\fn_changePlayerLoadout.sqf";
 KOL_fnc_initPlayerLoadout = compile preprocessfilelinenumbers "functions\loadout\fn_initPlayerLoadout.sqf";
@@ -27,13 +28,10 @@ KOL_fnc_createAmbientEnviroment = compile preprocessfilelinenumbers "functions\g
 KOL_fnc_initPlayer = compile preprocessfilelinenumbers "functions\gamemode\fn_initPlayer.sqf";
 KOL_fnc_initHotfoot = compile preprocessfilelinenumbers "functions\gamemode\fn_initHotfoot.sqf";
 KOL_fnc_printText = compile preprocessfilelinenumbers "functions\gamemode\fn_printText.sqf";
+KOL_fnc_mortarStrike = compile preprocessfilelinenumbers "functions\support\fn_mortarStrike.sqf";
+KOL_fnc_artyStrike = compile preprocessfilelinenumbers "functions\support\fn_artyStrike.sqf";
+KOL_fnc_fixedCasStrike = compile preprocessfilelinenumbers "functions\support\fn_fixedCas.sqf";
 [] call KOL_fnc_initHotfoot;
-
-0 = [] execvm "scripts\tpw_core.sqf"; 
-0 = [10,300,2,[50,250,500],0] execvm "scripts\tpw_air.sqf";
-//0 = [100,500,10,1,30,1,1] execvm "scripts\tpw_fall.sqf";
-0 = [10,15,200,75,60] execvm "scripts\tpw_animals.sqf";
-
 
 // TcB AIS Wounding System --------------------------------------------------------------------------
 if (!isDedicated) then {
