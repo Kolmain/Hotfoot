@@ -13,7 +13,46 @@ class CfgHints
 			arguments[] = {
 				"name player"
 			};
-			//image = "\a3\ui_f\data\gui\cfg\hints\Commanding_ca.paa";
+			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
+			noImage = false;
+		};
+		class revive
+		{
+			displayName = "Incapacitation";
+			displayNameShort = "Reviving Allies";
+			description = "If an infantry unit receives too much damage, they may become incapacitated before bleeding out. Once incapacitated, a friendly unit can approach the individual and select %3First Aid%4%3 from their action menu to begin brining the unit back to a combat effective state. Going into an incapacitated state does not count as a death. Friendly units can also %3Drag%4 and %3Carry%4 an incapacitated unit from the action menu. ";
+            tip = "While incapacitated, enemies may ignore you if you lay still. However, if you attempt to move or fire your weapon, you will become an active target again.";
+			arguments[] = {};
+			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
+			noImage = false;
+		};
+		class armory
+		{
+			displayName = "Field Armory";
+			displayNameShort = "Rearming";
+			description = "While at the Forward Operating Base, players have the option to modify their loadout by approaching the %3Armory Officer%4 and using their action menu to select %3Change Loadout%4. Additional equipment will become available as you accrue points during the operation.";
+            tip = "As you gain points on the battlefield, special equipment will become available for your use such as UAVs and long barreled rifles.";
+			arguments[] = {};
+			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
+			noImage = false;
+		};
+		class kill
+		{
+			displayName = "Opposing Forces";
+			displayNameShort = "OPFOR";
+			description = "During this mission you will have a bountiful amount of enemies. These enemies range from infantry to transport vehicles, and each will provide you with a different amount of points for a secured kill. A kill notification will be displayed if you visually witness your kill being secured. Targeting the OPFOR transportation vehicles will slow their rate of reinforcement, and skew the battle in your favor.";
+            tip = "If you don't receive the kill notification, it doesn't mean you didn't necessarily secure the kill, only you did not see it.";
+			arguments[] = {};
+			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
+			noImage = false;
+		};
+		class epilogue
+		{
+			displayName = "End of Mission";
+			displayNameShort = "The Epilogue";
+			description = "Once the fate of the objective has been secured, the mission will enter the epilogue. Units of the lossing faction(s) will need to make their way to the %3extraction point%4 for immediate exfiltration, while units of the winning faction(s) will attempt to %3eliminate the retreating forces%4. Successfully exfilitrating from the area of operation will result in bonus points being applied to your rank.";
+            tip = "There isn't a point deduction for not making it to the extraction point, so you may choose to enact guerilla tactics to secure your own bonus points and protect your retreating comrades.";
+			arguments[] = {};
 			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
 			noImage = false;
 		};
