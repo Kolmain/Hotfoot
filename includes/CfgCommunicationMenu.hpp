@@ -43,7 +43,7 @@ class CfgCommunicationMenu
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
     
-    class extraSquad
+    class qrf
     {
         text = "Quick Reaction Force"; // Text displayed in the menu and in a notification
         submenu = ""; // Submenu opened upon activation (expression is ignored when submenu is not empty.)
