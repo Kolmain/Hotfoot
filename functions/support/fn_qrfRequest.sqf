@@ -9,15 +9,7 @@ _grp = group caller;
 _rifles = units group caller;
 _pos2 = [0,0,0];
 
-_dis = _pos distance hardpoint;
 
-if (_dis > 1200) then {
-
-	(leader _grp) sideChat format["%1, requested coordinates are outside of the AO, request denied, out.", groupID (group _caller), groupID _grp];
-	sleep 3;
-	_newQrf = [_caller, "qrf"] call BIS_fnc_addCommMenuItem;
-	
-} else {
 
 switch (_grpSide) do {
     case west: {
@@ -42,17 +34,6 @@ switch (_grpSide) do {
 		_pos2 = getMarkerPos "arespawn_guerrila";
 	};
 };
-
-_caller sideChat format["%2, this is %1, we're requesting a QRF, over.", groupID (group _caller), groupID _grp];
-sleep 3;
-(leader _grp) sideChat format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp];
-sleep 3;
-_caller sideChat format["Grid %1, over.", mapGridPosition _pos];
-sleep 3;
-
-
-	(leader _grp) sideChat format["Copy that %1, dispatching to requested coordinates, out.", groupID (group _caller), groupID _grp];
-	sleep 3;
 	_vehicle = _retArray select 0;
 	_crew = _retArray select 1;
 	//_grp = _retArary select 2;
@@ -67,6 +48,34 @@ sleep 3;
 		_x moveInCargo _vehicle;
 	} forEach _rifles;
 	
+_caller sideChat format["%2, this is %1, we're requesting a QRF, over.", groupID (group _caller), groupID _grp];
+sleep 3;
+(leader _grp) sideChat format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp];
+sleep 3;
+_caller sideChat format["Grid %1, over.", mapGridPosition _pos];
+sleep 3;
+
+_dis = _pos distance hardpoint;
+
+if (_dis > 1200) then {
+
+	(leader _grp) sideChat format["%1, requested coordinates are outside of the AO, request denied, out.", groupID (group _caller), groupID _grp];
+	sleep 3;
+	_newQrf = [_caller, "qrf"] call BIS_fnc_addCommMenuItem;
+	{
+		deleteVehicle _x;
+	} forEach _heliCrew;
+	{
+		deleteVehicle _x;
+	} forEach units _grp;
+	deleteVehicle _heli;
+	deleteVehicle _vehicle;
+	deleteGroup _heliGrp;
+	deleteGroup _grp;
+} else {
+	(leader _grp) sideChat format["Copy that %1, dispatching to requested coordinates, out.", groupID (group _caller), groupID _grp];
+	sleep 3;
+
 	_heli setSlingLoad _vehicle;
 	
 	_heliDriver disableAI "FSM";
@@ -108,21 +117,4 @@ sleep 3;
 };
 
 
-{
-	_x addEventHandler ["MPKilled",{
-		_killed = _this select 0;
-		_killer = _this select 1;
-		if (_killer == player) then {
-		_vis = lineIntersects [eyePos player, eyePos _killed, player, _killed];
-			if(!_vis) then {
-			_printText = [       
-				["MINION KILL (+1pt)","<t align = 'right' shadow = '1' size = '0.7'>%1</t><br/>"],       
-				["",""]   
-			] spawn KOL_fnc_printText;  
-			};
-		};
-		if (KOL_debug) then {
-				systemChat format ["Respawnable AI %1 Died.", (name _x)];
-		};
-	}]
-}  forEach units _spawnedGrp; 
+
