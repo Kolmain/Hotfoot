@@ -27,7 +27,8 @@ class CfgRespawnInventory
    #include "includes\Roles.hpp"
 };
 
- #include "includes\CfgCommunicationMenu.hpp"
+#include "includes\CfgCommunicationMenu.hpp"
+#include "includes\CfgHints.hpp"
 
 class CfgRespawnTemplates
 {
@@ -48,8 +49,8 @@ class CfgRespawnTemplates
 };
 
 class RscTitles {
-	#include "ais_injury\dialogs\rscTitlesAIS.hpp"
+
 };
 class CfgFunctions {
-	#include "ais_injury\cfgFunctionsAIS.hpp"
+	
 };
