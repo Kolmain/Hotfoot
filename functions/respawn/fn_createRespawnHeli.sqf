@@ -8,10 +8,12 @@ _insertChopper = [0,0,0];
 _insertPoint = [0,0,0];
 _pickupPoint = [0,0,0];
 _heli = init_obj;
-
+_spawnPos = [0,0,0];
 switch (_grpSide) do {
     case west: {
-		_ret = [getMarkerPos "arespawn_west", 0, "B_Heli_Transport_01_camo_F", WEST] call bis_fnc_spawnvehicle;
+		_spawnPos = getMarkerPos "arespawn_west";
+		_spawnPos = [((_spawnPos select 0) + 100), _spawnPos select 1, _spawnPos select 2];
+		_ret = [_spawnPos, 0, "B_Heli_Transport_01_camo_F", WEST] call bis_fnc_spawnvehicle;
 		_heli = _ret select 0;
 		insertionChopper_west = _heli;
 		_spawnPoint = getMarkerPos "arespawn_west";
@@ -22,7 +24,9 @@ switch (_grpSide) do {
 		_pickupPoint = pickupPoint_west;
 	};
     case east: {
-		_ret = [ getMarkerPos "arespawn_east", 0, "O_Heli_Light_02_F", EAST] call bis_fnc_spawnvehicle;
+		_spawnPos = getMarkerPos "arespawn_east";
+		_spawnPos = [((_spawnPos select 0) + 100), _spawnPos select 1, _spawnPos select 2];
+		_ret = [_spawnPos, 0, "O_Heli_Light_02_F", EAST] call bis_fnc_spawnvehicle;
 		_heli = _ret select 0;
 		insertionChopper_east = _heli;
 		_spawnPoint = getMarkerPos "arespawn_east";
@@ -33,7 +37,9 @@ switch (_grpSide) do {
 		_pickupPoint = pickupPoint_east;
 	};
 	case RESISTANCE: {
-		_ret = [getMarkerPos "arespawn_guerrila", 0, "I_Heli_light_03_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		_spawnPos = getMarkerPos "arespawn_guerrila";
+		_spawnPos = [((_spawnPos select 0) + 100), _spawnPos select 1, _spawnPos select 2];
+		_ret = [_spawnPos, 0, "I_Heli_light_03_F", RESISTANCE] call bis_fnc_spawnvehicle;
 		//_ret = [getMarkerPos "arespawn_guerrila", 0, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
 		_heli = _ret select 0;
 		insertionChopper_guerrila = _heli;
@@ -56,7 +62,7 @@ _empty = [_heli, _grpSide] spawn {
 	_heli = _this select 0;
 	_grpSide = _this select 1;
 	waitUntil {!(canMove _heli)};
-	_heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)];
+	[{ _heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 	{
 		
 		unassignVehicle _x;
@@ -87,10 +93,10 @@ _empty = [_heli, _grpSide] spawn {
 	};
 
 };
-_heli sideChat format["%1 is now servicing all transport requests, over.", groupID (group _heli)];
+[{ _heli sideChat format["%1 is now servicing all transport requests, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 while {alive _heli} do 
 {	
-	_heli sideChat format["%1 is heading back to FOB, over.", groupID (group _heli)];
+	[{ _heli sideChat format["%1 is heading back to FOB, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
@@ -135,11 +141,6 @@ while {alive _heli} do
 	
 	//_heli removeAction _takeOffAction;
 	
-	if (KOL_debug) then {
-		{
-			//systemChat format ["%1 Assigned Cargo: %2", _heli,(name _x)];
-		} forEach assignedCargo _heli;
-	};
 	_heli setVariable ["transportReady", false, true];
 	while {_unitsIn < (count assignedCargo _heli)} do
 	{
@@ -162,7 +163,7 @@ while {alive _heli} do
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
-	_heli sideChat format["%1 is heading to AO for insertion, over.", groupID (group _heli)];
+	[{ _heli sideChat format["%1 is heading to AO for insertion, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 	//_heliDriver disableAI "FSM";
 	//_heliDriver disableAI "TARGET";
 	//_heliDriver disableAI "AUTOTARGET";
@@ -172,7 +173,7 @@ while {alive _heli} do
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
 	waitUntil {(_heli distance _insertPoint < 150)};
-	_heli sideChat format["%1 is at the insertion point, over.", groupID (group _heli)];
+	[{ _heli sideChat format["%1 is at the insertion point, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 	_heli flyInHeight 0;
 	_heli land "LAND";
 	_heliDriver action ["engineOn", vehicle _heliDriver];
