@@ -98,7 +98,18 @@ if (!hootfoot_intro) then {
 		unassignVehicle _x;
 	} forEach units _spawnedGrp;
 	[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
-
+	
+	switch (_grpSide) do {
+		case west: {
+			activeGrps_west = activeGrps_west + [_spawnedGrp];
+		};
+		case east: {
+			activeGrps_east = activeGrps_east + [_spawnedGrp];
+		};
+		case RESISTANCE: {
+			activeGrps_guerrila = activeGrps_guerrila  + [_spawnedGrp];
+		};
+	};
 } else {
 	{
 	_x setPos _insertPoint;
