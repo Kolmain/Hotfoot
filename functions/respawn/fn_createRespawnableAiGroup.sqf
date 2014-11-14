@@ -43,26 +43,16 @@ switch (_grpSide) do {
 
 
 _empty = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
+if (isMultiplayer) then {
+	{
+		_x addEventHandler ["MPKilled",{[{ _this spawn KOL_fnc_minionEH },"BIS_fnc_spawn",true] call BIS_fnc_MP}]
+	}  forEach units _spawnedGrp; 
+} else {
+	{
+		_x addEventHandler ["Killed",{[{ _this spawn KOL_fnc_minionEH },"BIS_fnc_spawn",true] call BIS_fnc_MP}]
+	}  forEach units _spawnedGrp; 
 
-{
-	_x addEventHandler ["MPKilled",{
-		_killed = _this select 0;
-		_killer = _this select 1;
-		if (_killer == player) then {
-		_vis = lineIntersects [eyePos player, eyePos _killed, player, _killed];
-			if(!_vis) then {
-			_printText = [       
-				["MINION KILL (+1pt)","<t align = 'right' shadow = '1' size = '0.7'>%1</t><br/>"],       
-				["",""]   
-			] spawn KOL_fnc_printText;  
-			};
-		};
-		if (KOL_debug) then {
-				systemChat format ["Respawnable AI %1 Died.", (name _x)];
-		};
-	}]
-}  forEach units _spawnedGrp; 
-
+};
 if (!hootfoot_intro) then {
 
 	{
@@ -108,7 +98,7 @@ if (!hootfoot_intro) then {
 	{
 		unassignVehicle _x;
 	} forEach units _spawnedGrp;
-	(leader _spawnedGrp) sideChat format["This is %1, we have entered the AO! Be advised, additional friendly forces are in the AO.", groupID _spawnedGrp];
+	[{ (leader _spawnedGrp) sideChat format["This is %1, we have entered the AO! Be advised, additional friendly forces are in the AO.", groupID _spawnedGrp] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 
 } else {
 	{
@@ -131,12 +121,12 @@ while {count _aliveUnits > 2} do
 	{ 
 		if (!alive _x) then { 
 			_aliveUnits = _aliveUnits - [_x];
-			(leader _spawnedGrp) sideChat "Man down!";
+			[{ (leader _spawnedGrp) sideChat "Man down!" },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 		};
 	} forEach _aliveUnits;
 	sleep 1;
 };
-(leader _spawnedGrp) sideChat format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))];
+[{ (leader _spawnedGrp) sideChat format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 if (!hotfoot_epilogue) then {
 	_reset = [_grpSide] call KOL_fnc_createRespawnableAiGroup;
 } else {
