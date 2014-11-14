@@ -105,15 +105,15 @@ if (_dis > 1200) then {
 		ropeCut [ _x, 5];
 	} forEach ropes _heli;
 	[(leader _grp), format["Be advised, QRF %1 is in the AO and engaging hostiles, out.", groupID _grp]] call KOL_fnc_globalSideChat;
+	_heli land "NONE";
 	_heliDriver move _pos2;
-	_heli flyInHeight 150;
+	_heli flyInHeight 90;
 	waitUntil {(_heli distance _pos2 < 300)};
 	{
 		deleteVehicle _x;
 	} forEach _heliCrew;
 	deleteVehicle _heli;
 	deleteGroup _heliGrp;
-
 };
 
 
