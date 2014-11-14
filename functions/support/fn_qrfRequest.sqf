@@ -61,7 +61,7 @@ if (_dis > 1200) then {
 
 	[(leader _grp), format["%1, requested coordinates are outside of the AO, request denied, out.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 	sleep 3;
-	_newQrf = [_caller, "qrf"] call BIS_fnc_addCommMenuItem;
+	_newQrf = [_caller, "qrfRequest"] call BIS_fnc_addCommMenuItem;
 	{
 		deleteVehicle _x;
 	} forEach _heliCrew;
