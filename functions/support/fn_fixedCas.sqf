@@ -32,16 +32,16 @@ switch (_grpSide) do {
 	};
 };
 _dis = _pos distance _pilot;
-_caller sideChat format["%2, this is %1, requesting immediate fixed wing CAS support, over.", groupID (group _caller), groupID (group _pilot)];
+[_caller, format["%2, this is %1, requesting immediate fixed wing CAS support, over.", groupID (group _caller), groupID (group _pilot)]] call KOL_fnc_globalSideChat;
 sleep 3.5;
-_pilot sideChat format["%1, this is %2, send grid coordinates, over.", groupID (group _caller), groupID (group _pilot)];
+[_pilot, format["%1, this is %2, send grid coordinates, over.", groupID (group _caller), groupID (group _pilot)]] call KOL_fnc_globalSideChat;
 sleep 3.5;
-_caller sideChat format["Grid %3, over.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos];
+[_caller, format["Grid %3, over.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 sleep 3.5;
 
 if ( _dis > 500) then {
 
-	_pilot sideChat format["Grid %3 confirmed, en route, over.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos];
+	[_pilot, format["Grid %3 confirmed, en route, over.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 	sleep 3.5;
 	_center = createCenter sideLogic;    
 	_group = createGroup _center;  
@@ -50,11 +50,11 @@ if ( _dis > 500) then {
 	_cas setVariable ["vehicle", _planeClass , true]; 
 	_cas setVariable ["type", 2, true];
 	waituntil {isnull _cas};
-	_pilot sideChat format["Fixed wing CAS support request completed, %2 out.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos];
+	[_pilot, format["Fixed wing CAS support request completed, %2 out.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 
 } else {
 
-	_pilot sideChat format["Grid %3 is too close to friendly forces, request denied, out.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos];
+	[_pilot, format["Grid %3 is too close to friendly forces, request denied, out.", groupID (group _caller), groupID (group _pilot), mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 	sleep 5;
 	_newCasStrike = [_caller, "fixedCasStrike"] call BIS_fnc_addCommMenuItem;
 };
