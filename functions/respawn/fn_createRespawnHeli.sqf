@@ -10,7 +10,7 @@ _pickupPoint = [0,0,0];
 _heli = init_obj;
 _spawnPos = [0,0,0];
 switch (_grpSide) do {
-    case west: {
+    	case west: {
 		_spawnPos = getMarkerPos "arespawn_west";
 		_spawnPos = [((_spawnPos select 0) + 100), _spawnPos select 1, _spawnPos select 2];
 		_ret = [_spawnPos, 0, "B_Heli_Transport_01_camo_F", WEST] call bis_fnc_spawnvehicle;
@@ -23,7 +23,7 @@ switch (_grpSide) do {
 		_insertPoint = insertionPoint_west;
 		_pickupPoint = pickupPoint_west;
 	};
-    case east: {
+    	case east: {
 		_spawnPos = getMarkerPos "arespawn_east";
 		_spawnPos = [((_spawnPos select 0) + 100), _spawnPos select 1, _spawnPos select 2];
 		_ret = [_spawnPos, 0, "O_Heli_Light_02_F", EAST] call bis_fnc_spawnvehicle;
@@ -62,7 +62,7 @@ _empty = [_heli, _grpSide] spawn {
 	_heli = _this select 0;
 	_grpSide = _this select 1;
 	waitUntil {!(canMove _heli)};
-	[{ _heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["Mayday! Mayday! %1 going down!", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	{
 		
 		unassignVehicle _x;
@@ -93,10 +93,11 @@ _empty = [_heli, _grpSide] spawn {
 	};
 
 };
-[{ _heli sideChat format["%1 is now servicing all transport requests, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+[_heli, format["%1 is now servicing all transport requests, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
+sleep 2;
 while {alive _heli} do 
 {	
-	[{ _heli sideChat format["%1 is heading back to FOB, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
@@ -117,9 +118,6 @@ while {alive _heli} do
 	
 	_unitsIn = 0;
 	_loop = true;
-	//_takeOffAction = _heli addaction ["Take Off", { 
-	//	(_this select 0) setVariable ["transportReady", false, true];
-	//}]; 
 	while {_loop} do {
 		_ready = _insertChopper getVariable "transportReady";
 		if (count assignedCargo _heli >= 8) then {
@@ -127,19 +125,15 @@ while {alive _heli} do
 			_loop = false;
 		};
 		if (!_ready) then {
-			//_heli sideChat format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)];
 			sleep 10;
 			_loop = false;
 		} else {
 			if (count assignedCargo _heli >= 4) then {
-				//_heli sideChat format["%1 is departing in 15 seconds with loaded troops, over.", groupID (group _heli)];
 				sleep 15;
 				_loop = false;
 			};
 		};
 	};
-	
-	//_heli removeAction _takeOffAction;
 	
 	_heli setVariable ["transportReady", false, true];
 	while {_unitsIn < (count assignedCargo _heli)} do
@@ -163,7 +157,7 @@ while {alive _heli} do
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
-	[{ _heli sideChat format["%1 is heading to AO for insertion, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is heading to AO for insertion, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	//_heliDriver disableAI "FSM";
 	//_heliDriver disableAI "TARGET";
 	//_heliDriver disableAI "AUTOTARGET";
@@ -173,7 +167,7 @@ while {alive _heli} do
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
 	waitUntil {(_heli distance _insertPoint < 150)};
-	[{ _heli sideChat format["%1 is at the insertion point, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is at the insertion point, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_heli flyInHeight 0;
 	_heli land "LAND";
 	_heliDriver action ["engineOn", vehicle _heliDriver];
@@ -183,7 +177,7 @@ while {alive _heli} do
 	_heli animateDoor ["door_L", 1];
 	_heli animateDoor ["door_R", 1];
 	_heli animateDoor ["doors", 1];
-	_heli vehicleChat "This is your stop gentlemen, see you back home!";
+	[_heli, "This is your stop gentlemen, see you back home!"] call KOL_fnc_globalVehicleChat;
 	_unitsOut = 0;
 	_assignedUnits = assignedCargo _heli;
 	_heliDriver action ["engineOn", vehicle _heliDriver];
