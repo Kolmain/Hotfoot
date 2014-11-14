@@ -54,7 +54,6 @@ if (isMultiplayer) then {
 
 };
 if (!hootfoot_intro) then {
-
 	{
 	_x moveInCargo _spawnVehicle;
 	 unassignVehicle _x; 
@@ -98,7 +97,7 @@ if (!hootfoot_intro) then {
 	{
 		unassignVehicle _x;
 	} forEach units _spawnedGrp;
-	[{ (leader _spawnedGrp) sideChat format["This is %1, we have entered the AO! Be advised, additional friendly forces are in the AO.", groupID _spawnedGrp] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
 
 } else {
 	{
@@ -121,14 +120,16 @@ while {count _aliveUnits > 2} do
 	{ 
 		if (!alive _x) then { 
 			_aliveUnits = _aliveUnits - [_x];
-			[{ (leader _spawnedGrp) sideChat "Man down!" },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+			//[{ (leader _spawnedGrp) sideChat "Man down!" },"BIS_fnc_spawn",true] call BIS_fnc_MP;
 		};
 	} forEach _aliveUnits;
 	sleep 1;
 };
-[{ (leader _spawnedGrp) sideChat format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+
+[(leader _spawnedGrp), format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))]] call KOL_fnc_globalSideChat;
+
 if (!hotfoot_epilogue) then {
 	_reset = [_grpSide] call KOL_fnc_createRespawnableAiGroup;
 } else {
-
+	
 };
