@@ -102,13 +102,13 @@ while {alive _heli} do
 	
 	
 	_loop = true;
-	[{ 
-		_takeOffAction = _heli addaction ["<t color='#C2BF19'>Take Off</t>", { 
-		(_this select 0) removeAction (_this select 2);
-		(_this select 0) setVariable ["transportReady", false, true];
-		[(_this select 1), "All in, dust off!"] call KOL_fnc_globalVehicleChat;
+	[compile format [
+	"_takeOffAction = _heli addaction ["<t color='#C2BF19'>Take Off</t>", { 
+		%1 removeAction %2;
+		%1 setVariable ["transportReady", false, true];
+		[%3, "All in, dust off!"] call KOL_fnc_globalVehicleChat;
 		sleep 2;
-	}]},"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	", (_this select 0), (_this select 2), (_this select 1)], "BIS_fnc_spawn", true] call BIS_fnc_MP;
 	while {_loop} do {
 		_ready = true;
 		_ready = _insertChopper getVariable "transportReady";
