@@ -62,7 +62,7 @@ _empty = [_heli, _grpSide] spawn {
 	_heli = _this select 0;
 	_grpSide = _this select 1;
 	waitUntil {!(canMove _heli)};
-	_heli sideChat format["Mayday! Mayday! %1 going down!", groupID (group _heli)];
+	[_heli, format["Mayday! Mayday! %1 going down!", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_attackWP2 = (group driver _heli) addWaypoint [hardpoint, 25];
 	_attackWP2 setWPPos hardpoint;
 	_attackWP2 setWaypointBehaviour "AWARE";
@@ -78,10 +78,10 @@ _empty = [_heli, _grpSide] spawn {
 	};
 
 };
-[{ _heli sideChat format["%1 is now servicing all small transport requests, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+[_heli, format["%1 is now servicing all small transport requests, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 while {alive _heli} do 
 {	
-	[{ _heli sideChat format["%1 is heading back to FOB, over.", groupID (group _heli)]; },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
@@ -106,14 +106,14 @@ while {alive _heli} do
 		_takeOffAction = _heli addaction ["<t color='#C2BF19'>Take Off</t>", { 
 		(_this select 0) removeAction (_this select 2);
 		(_this select 0) setVariable ["transportReady", false, true];
-		(_this select 1) vehicleChat "All in, dust off!";
+		[(_this select 1), "All in, dust off!"] call KOL_fnc_globalVehicleChat;
 		sleep 2;
 	}]},"BIS_fnc_spawn",true] call BIS_fnc_MP;
 	while {_loop} do {
 		_ready = true;
 		_ready = _insertChopper getVariable "transportReady";
 		if (!_ready) then {
-			[{_heli sideChat format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+			[_heli,  format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 			sleep 10;
 			_loop = false;
 		};
@@ -132,7 +132,7 @@ while {alive _heli} do
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
-	[{ _heli sideChat format["%1 is heading to AO for insertion, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is heading to AO for insertion, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat; BIS_fnc_MP;
 	//_heliDriver disableAI "FSM";
 	//_heliDriver disableAI "TARGET";
 	//_heliDriver disableAI "AUTOTARGET";
@@ -142,7 +142,7 @@ while {alive _heli} do
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
 	waitUntil {(_heli distance _insertPoint < 150)};
-	[{ _heli sideChat format["%1 is at the insertion point, over.", groupID (group _heli)] },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+	[_heli, format["%1 is at the insertion point, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_heli flyInHeight 0;
 	_heli land "LAND";
 	_heliDriver action ["engineOn", vehicle _heliDriver];
@@ -152,7 +152,7 @@ while {alive _heli} do
 	_heli animateDoor ["door_L", 1];
 	_heli animateDoor ["door_R", 1];
 	_heli animateDoor ["doors", 1];
-	_heli vehicleChat "This is your stop gentlemen, see you back home!";
+	[_heli, "This is your stop gentlemen, see you back home!"] call KOL_fnc_globalVehicleChat;
 	_unitsOut = 0;
 	_assignedUnits = assignedCargo _heli;
 	_heliDriver action ["engineOn", vehicle _heliDriver];
