@@ -17,7 +17,8 @@ if (!isDedicated) then {
 		0
 	] call BIS_fnc_establishingShot;
 };
-
+KOL_fnc_epilogue = compile preprocessfilelinenumbers "functions\gamemode\fn_epilogue.sqf";
+KOL_fnc_globalVehicleChat = compile preprocessfilelinenumbers "functions\locality\fn_globalVehicleChat.sqf";
 KOL_fnc_globalSideChat = compile preprocessfilelinenumbers "functions\locality\fn_globalSideChat.sqf";
 KOL_fnc_createRespawnHeli = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeli.sqf";
 KOL_fnc_createRespawnHeliPlayer = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeliPlayer.sqf";
