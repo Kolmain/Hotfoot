@@ -15,31 +15,60 @@ _gear = [west, "autorifleman_west"] call BIS_fnc_addRespawnInventory;
 _gear = [west, "sniper_west"] call BIS_fnc_addRespawnInventory;
 _gear = [west, "specops_west"] call BIS_fnc_addRespawnInventory;
 
+_bteams = "b_teams" call BIS_fnc_getParamValue;
+_oteams = "o_teams" call BIS_fnc_getParamValue;
+_iteams = "i_teams" call BIS_fnc_getParamValue;
+
 if (!isDedicated) then { 
 	[] spawn KOL_fnc_initPlayer;
 };
 
-
-if (isDedicated || !isMultiplayer) then { 
-	
+if (isServer) then {
 	[east] spawn KOL_fnc_createRespawnHeliPlayer;
 	[west] spawn KOL_fnc_createRespawnHeliPlayer;
 	[independent] spawn KOL_fnc_createRespawnHeliPlayer;
+	
 	_empty = [west, respawnVehicle_west] spawn BIS_fnc_addRespawnPosition;
 	_empty = [east, respawnVehicle_east] spawn BIS_fnc_addRespawnPosition;
 	_empty = [resistance, respawnVehicle_guerrila] spawn BIS_fnc_addRespawnPosition;
-	for "_i" from 1 to 5 do
-	{
-		[west] spawn KOL_fnc_createRespawnableAiGroup;
-		[east] spawn KOL_fnc_createRespawnableAiGroup;
-		[independent] spawn KOL_fnc_createRespawnableAiGroup;
-		sleep 10;
+	if (isMultiplayer) then {
+		_empty = [] spawn {
+			for "_i" from 1 to b_teams do
+			{
+				[west] spawn KOL_fnc_createRespawnableAiGroup;
+				sleep 10;
+			};
+		};
+		_empty = [] spawn {
+			for "_i" from 1 to o_teams do
+			{
+				[east] spawn KOL_fnc_createRespawnableAiGroup;
+				sleep 10;
+			};
+		};
+		_empty = [] spawn {
+			for "_i" from 1 to i_teams do
+			{
+				[independent] spawn KOL_fnc_createRespawnableAiGroup;
+				sleep 10;
+			};
+		};
+		if (_bteams > 0) then { [west] spawn KOL_fnc_createRespawnHeli; };
+		if (_oteams > 0) then { [east] spawn KOL_fnc_createRespawnHeli; };
+		if (_iteams > 0) then { [independent] spawn KOL_fnc_createRespawnHeli; };
+		sleep 30;
+	} else {
+		for "_i" from 1 to 5 do
+			{
+				[west] spawn KOL_fnc_createRespawnableAiGroup;
+				[east] spawn KOL_fnc_createRespawnableAiGroup;
+				[independent] spawn KOL_fnc_createRespawnableAiGroup;
+				sleep 10;
+			};
+		[west] spawn KOL_fnc_createRespawnHeli; 
+		[east] spawn KOL_fnc_createRespawnHeli; 
+		[independent] spawn KOL_fnc_createRespawnHeli; 
 	};
-	[east] spawn KOL_fnc_createRespawnHeli;
-	[west] spawn KOL_fnc_createRespawnHeli;
-	[independent] spawn KOL_fnc_createRespawnHeli;
-	
-	hootfoot_intro = false;
-
 };
+hootfoot_intro = false;
 
