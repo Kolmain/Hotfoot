@@ -4,6 +4,7 @@ KOL_debug = true;
 insertionChopper_west = init_obj;
 insertionChopper_east = init_obj;
 insertionChopper_guerrila = init_obj;
+extractionChopper = init_obj;
 winningSide = LOGIC;
 activeGrps_west = [init_obj];
 activeGrps_east = [init_obj];
