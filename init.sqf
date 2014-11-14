@@ -18,7 +18,7 @@ if (!isDedicated) then {
 	] call BIS_fnc_establishingShot;
 };
 
-call compile preprocessfile "SHK_pos\shk_pos_init.sqf";
+KOL_fnc_globalSideChat = compile preprocessfilelinenumbers "functions\locality\fn_globalSideChat.sqf";
 KOL_fnc_createRespawnHeli = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeli.sqf";
 KOL_fnc_createRespawnHeliPlayer = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnHeliPlayer.sqf";
 KOL_fnc_createRespawnableAiGroup = compile preprocessfilelinenumbers "functions\respawn\fn_createRespawnableAiGroup.sqf";
