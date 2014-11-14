@@ -41,46 +41,46 @@ if (isNil "_busy") then {
 };
 
 if(!_busy || isNil "_busy") then {
-	_caller sideChat format["%1, this is %2, adjust fire, over.", groupID (group _mortar), groupID (group _caller)];
+	[_caller, format["%1, this is %2, adjust fire, over.", groupID (group _mortar), groupID (group _caller)]] call KOL_fnc_globalSideChat;
 	sleep 3.5;
 
-	_mortar sideChat format["%2 this is %1, adjust fire, out.", groupID (group _mortar), groupID (group _caller)];
+	[_mortar, format["%2 this is %1, adjust fire, out.", groupID (group _mortar), groupID (group _caller)]] call KOL_fnc_globalSideChat;
 	sleep 3.5;
-	_caller sideChat format["Grid %1, over.", mapGridPosition _pos];
+	[_caller, format["Grid %1, over.", mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 	sleep 3;
 
 	_isInRange = _pos inRangeOfArtillery [[_mortar], currentMagazine _mortar];
 	if (_isInRange) then {
-		_mortar sideChat format["Grid %1, out.", mapGridPosition _pos];
+		[_mortar, format["Grid %1, out.", mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 		sleep 3;
-		_caller sideChat "Fire for effect, over.";
+		[_caller, "Fire for effect, over."] call KOL_fnc_globalSideChat;
 		sleep 3;
-		_mortar sideChat "Fire for effect, out.";
+		[_mortar, "Fire for effect, out."] call KOL_fnc_globalSideChat;
 		sleep 1.5;
-		_mortar sideChat "Firing for effect, five rounds, out.";
+		[_mortar, "Firing for effect, five rounds, out."] call KOL_fnc_globalSideChat;
 		sleep 3.5;
-		_mortar sideChat "Shot, over.";
+		[_mortar, "Shot, over."] call KOL_fnc_globalSideChat;
 		//fire!
 		_eta = 0;
 		_mortar doArtilleryFire [_pos, currentMagazine _mortar, 5];
 		_eta = _mortar getArtilleryETA [_pos, currentMagazine _mortar];
-		_caller sideChat "Shot, out.";
+		[_caller, "Shot, out."] call KOL_fnc_globalSideChat;
 		sleep 3.5;
 		_mortar setVariable ["KOL_support_busy", false, true];
-		_mortar sideChat format["Splash in %1 seconds, over.", _eta];
+		[_mortar, format["Splash in %1 seconds, over.", _eta]] call KOL_fnc_globalSideChat;
 		sleep _eta;
-		_caller sideChat "Splash, over.";
+		[_caller, "Splash, over."] call KOL_fnc_globalSideChat;
 		sleep 3.5;
-		_mortar sideChat "Splash, out.";
+		[_mortar, "Splash, out."] call KOL_fnc_globalSideChat;
 	} else {
-		_mortar sideChat format["%2 this is %1, specified map grid is out of range, out.", groupID (group _mortar), groupID (group _caller)];
+		[_mortar, format["%2 this is %1, specified map grid is out of range, out.", groupID (group _mortar), groupID (group _caller)]] call KOL_fnc_globalSideChat;
 		_newMortarStrike = [_caller, "mortarStrike"] call BIS_fnc_addCommMenuItem;
 	};
 	
 	} else {
-		_caller sideChat format["%1, this is %2, adjust fire, over.", groupID (group _mortar), groupID (group _caller)];
+		[_caller, format["%1, this is %2, adjust fire, over.", groupID (group _mortar), groupID (group _caller)]] call KOL_fnc_globalSideChat;
 		sleep 3.5;
-		_mortar sideChat format["%2 this is %1, we are already servicing a request, out.", groupID (group _arty), groupID (group _caller)];
+		[_mortar, format["%2 this is %1, we are already servicing a request, out.", groupID (group _arty), groupID (group _caller)]] call KOL_fnc_globalSideChat;
 		_newMortarStrike = [_caller, "mortarStrike"] call BIS_fnc_addCommMenuItem;
 
 };
