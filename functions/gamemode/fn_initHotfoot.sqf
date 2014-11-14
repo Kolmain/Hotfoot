@@ -4,6 +4,12 @@ KOL_debug = true;
 insertionChopper_west = init_obj;
 insertionChopper_east = init_obj;
 insertionChopper_guerrila = init_obj;
+activeGrps_west = [init_obj];
+activeGrps_east = [init_obj];
+activeGrps_guerrila = [init_obj];
+activeGrps_west = activeGrps_west - [init_obj]
+activeGrps_east = activeGrps_east - [init_obj];
+activeGrps_guerrila = activeGrps_guerrila - [init_obj];
 
 publicVariable "hotfoot_epilogue";
 publicVariable "hootfoot_intro";
