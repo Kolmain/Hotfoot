@@ -48,18 +48,18 @@ switch (_grpSide) do {
 		_x moveInCargo _vehicle;
 	} forEach _rifles;
 	
-_caller sideChat format["%2, this is %1, we're requesting a QRF, over.", groupID (group _caller), groupID _grp];
+[_caller, format["%2, this is %1, we're requesting a QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
-(leader _grp) sideChat format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp];
+[(leader _grp), format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
-_caller sideChat format["Grid %1, over.", mapGridPosition _pos];
+[_caller, format["Grid %1, over.", mapGridPosition _pos]] call KOL_fnc_globalSideChat;
 sleep 3;
 
 _dis = _pos distance hardpoint;
 
 if (_dis > 1200) then {
 
-	(leader _grp) sideChat format["%1, requested coordinates are outside of the AO, request denied, out.", groupID (group _caller), groupID _grp];
+	[(leader _grp), format["%1, requested coordinates are outside of the AO, request denied, out.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 	sleep 3;
 	_newQrf = [_caller, "qrf"] call BIS_fnc_addCommMenuItem;
 	{
@@ -73,7 +73,7 @@ if (_dis > 1200) then {
 	deleteGroup _heliGrp;
 	deleteGroup _grp;
 } else {
-	(leader _grp) sideChat format["Copy that %1, dispatching to requested coordinates, out.", groupID (group _caller), groupID _grp];
+	[(leader _grp), format["Copy that %1, dispatching to requested coordinates, out.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 	sleep 3;
 
 	_heli setSlingLoad _vehicle;
@@ -104,7 +104,7 @@ if (_dis > 1200) then {
 	{
 		ropeCut [ _x, 5];
 	} forEach ropes _heli;
-	(leader _grp) sideChat format["Be advised, QRF %1 is in the AO and engaging hostiles, out.", groupID _grp];
+	[(leader _grp), format["Be advised, QRF %1 is in the AO and engaging hostiles, out.", groupID _grp]] call KOL_fnc_globalSideChat;
 	_heliDriver move _pos2;
 	_heli flyInHeight 150;
 	waitUntil {(_heli distance _pos2 < 300)};
