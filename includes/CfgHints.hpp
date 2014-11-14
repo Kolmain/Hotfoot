@@ -90,5 +90,15 @@ class CfgHints
 			image = "\a3\ui_f\data\gui\cfg\hints\ArtilleryCall_ca.paa";
 			noImage = false;
 		};
+		class ugvRequest
+		{
+			displayName = "UGV Request";
+			displayNameShort = "Requesting a UGV";
+			description = "An unmanned ground vehicle reduces the risk to friendly forces, while providing reinforcement and firepower to existing allied forces.%1<t></t>1. Point at the target.%1<t></t>2. Press %3[0]%4 to enter the command menu.%1<t></t>3. Select %3Communications%4 - %3[8]%4.%1<t></t>4. Select %UGV Request%4.%1<t></t> Command will then confirm the request and dispatch the UGV to the requested location. <t></t> If the coordinates that you sent are unable to be used, the supporting unit will grant you another request.";
+			tip = "UGVs can sustain substantial small-arms damage, but are vulnerable to explosive attacks. Be sure to support friendly UGVs with infantry assistance.";
+			arguments[] = {};
+			image = "\a3\ui_f\data\gui\cfg\hints\ArtilleryCall_ca.paa";
+			noImage = false;
+		};
 	};
 };
