@@ -13,7 +13,7 @@ _pos2 = [0,0,0];
 
 switch (_grpSide) do {
     case west: {
-		_grp = [getMarkerPos "arespawn_west", WEST [B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
+		_grp = [getMarkerPos "arespawn_west", WEST ["B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
 		_rifles = units _grp;
 		_retArray = [getMarkerPos "arespawn_west", 180, "B_MRAP_01_hmg_F", _grp] call bis_fnc_spawnvehicle;
 		_retArray2 = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
