@@ -55,10 +55,11 @@ _hitID = player addEventHandler ["Hit",{
 _mus = [] spawn BIS_fnc_jukebox;
 _amb = [] spawn KOL_fnc_createAmbientEnviroment;
 _ao = [aoTrig] spawn BIS_fnc_drawAO; 
+[] spawn KOL_fnc_initPlayerSupport;
 
-player enableFatigue false;
 
 _loadout = [(side player)] spawn KOL_fnc_initPlayerLoadout;
+
 
 _colorWest = [west] call BIS_fnc_sideColor;
 _colorEast = [east] call BIS_fnc_sidecolor;
