@@ -3,20 +3,11 @@ enableTeamswitch false;
 private ["_colorWest", "_colorEast"];
 _colorWest = [west] call BIS_fnc_sideColor;
 _colorEast = [east] call BIS_fnc_sidecolor;
-if (!isDedicated) then { 
-	[
-		hardpoint,
-		"BATTLE OF ANTHRAKIA",//spawns the text
-		400,//height
-		500,//radius
-		10,//angle
-		(random 1),//clockwise\anit-clock
-		[
-			["\A3\ui_f\data\map\mapcontrol\Transmitter_CA.paa", _colorEast, hardpoint,  1, 1, 0, "ANTHRAKIA", 0]
-		],
-		0
-	] call BIS_fnc_establishingShot;
-};
+
+KOL_fnc_initPlayerSupport = compile preprocessfilelinenumbers "functions\support\fn_initPlayerSupports.sqf";
+KOL_fnc_onUnitKilled = compile preprocessfilelinenumbers "functions\handlers\fn_onUnitKilled.sqf";
+KOL_fnc_onPlayerRespawn = compile preprocessfilelinenumbers "functions\respawn\fn_onPlayerRespawn.sqf";
+KOL_fnc_onPlayerKilled = compile preprocessfilelinenumbers "functions\respawn\fn_onPlayerKilled.sqf";
 KOL_fnc_epilogue = compile preprocessfilelinenumbers "functions\gamemode\fn_epilogue.sqf";
 KOL_fnc_globalVehicleChat = compile preprocessfilelinenumbers "functions\locality\fn_globalVehicleChat.sqf";
 KOL_fnc_globalSideChat = compile preprocessfilelinenumbers "functions\locality\fn_globalSideChat.sqf";
@@ -32,6 +23,8 @@ KOL_fnc_printText = compile preprocessfilelinenumbers "functions\gamemode\fn_pri
 KOL_fnc_mortarStrike = compile preprocessfilelinenumbers "functions\support\fn_mortarStrike.sqf";
 KOL_fnc_artyStrike = compile preprocessfilelinenumbers "functions\support\fn_artyStrike.sqf";
 KOL_fnc_fixedCasStrike = compile preprocessfilelinenumbers "functions\support\fn_fixedCas.sqf";
+KOL_fnc_qrfRequest = compile preprocessfilelinenumbers "functions\support\fn_qrfRequest.sqf";
+KOL_fnc_ugvRequest = compile preprocessfilelinenumbers "functions\support\fn_ugvRequest.sqf";
 [] call KOL_fnc_initHotfoot;
 
 // TcB AIS Wounding System --------------------------------------------------------------------------
