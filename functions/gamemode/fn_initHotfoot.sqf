@@ -1,20 +1,25 @@
 hotfoot_epilogue = false;
-hootfoot_intro = true;
+hotfoot_intro = true;
 KOL_debug = true;
 insertionChopper_west = init_obj;
 insertionChopper_east = init_obj;
 insertionChopper_guerrila = init_obj;
 extractionChopper = init_obj;
-winningSide = LOGIC;
+winningSide = west;
 activeGrps_west = [init_obj];
 activeGrps_east = [init_obj];
 activeGrps_guerrila = [init_obj];
-activeGrps_west = activeGrps_west - [init_obj]
-activeGrps_east = activeGrps_east - [init_obj];
-activeGrps_guerrila = activeGrps_guerrila - [init_obj];
+points_west = 0;
+points_east = 0;
+points_guerrila = 0;
+scoreToWin = 250;
 
 publicVariable "hotfoot_epilogue";
-publicVariable "hootfoot_intro";
+publicVariable "points_west";
+publicVariable "points_east";
+publicVariable "points_guerrila";
+publicVariable "scoreToWin";
+publicVariable "hotfoot_intro";
 publicVariable "KOL_debug";
 
 _gear = [west, 'rifleman_west'] call BIS_fnc_addRespawnInventory;
@@ -66,7 +71,7 @@ if (isServer) then {
 		if (_iteams > 0) then { [independent] spawn KOL_fnc_createRespawnHeli; };
 		sleep 30;
 	} else {
-		for "_i" from 1 to 5 do
+		for "_i" from 1 to 4 do
 			{
 				[west] spawn KOL_fnc_createRespawnableAiGroup;
 				[east] spawn KOL_fnc_createRespawnableAiGroup;
@@ -77,6 +82,26 @@ if (isServer) then {
 		[east] spawn KOL_fnc_createRespawnHeli; 
 		[independent] spawn KOL_fnc_createRespawnHeli; 
 	};
+	_endgame = [] spawn {
+		_loop = true;
+		while {_loop} do {
+			if (points_west >= scoreToWin) then {
+				_end = [] spawn KOL_fnc_epilogue;
+				_loop = false;
+			};
+			if (points_east >= scoreToWin) then {
+				_end = [] spawn KOL_fnc_epilogue;
+				_loop = false;
+			};
+			if (points_guerrila >= scoreToWin) then {
+				_end = [] spawn KOL_fnc_epilogue;
+				_loop = false;
+			};
+		};
+	};
 };
-hootfoot_intro = false;
-
+activeGrps_west = activeGrps_west - [init_obj];
+activeGrps_east = activeGrps_east - [init_obj];
+activeGrps_guerrila = activeGrps_guerrila - [init_obj];
+hotfoot_intro = false;
+publicVariable "hotfoot_intro";
