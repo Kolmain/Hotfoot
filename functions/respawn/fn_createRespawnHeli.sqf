@@ -58,6 +58,17 @@ _heliDriver move _pickupPoint;
 _heli setVariable ["transportReady", false, true];
 _heli lock 3;
 
+if (isMultiplayer) then {
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp; 
+	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+} else {
+	{
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _heliGrp; 
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+};
 _empty = [_heli, _grpSide] spawn {
 	_heli = _this select 0;
 	_grpSide = _this select 1;
@@ -93,11 +104,11 @@ _empty = [_heli, _grpSide] spawn {
 	};
 
 };
-[_heli, format["%1 is now servicing all transport requests, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
+[_heli, format["%1 is now servicing all full squad transport requests, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 sleep 2;
 while {alive _heli} do 
 {	
-	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
+	
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
@@ -208,7 +219,7 @@ while {alive _heli} do
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
-	
+	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 };
 
 
