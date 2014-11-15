@@ -15,6 +15,6 @@ switch (_grpSide) do {
 doStop _va; 
 _va disableAI "MOVE";  
 _va disableAI "ANIM";
-_va addaction ["Change Loadout", { ["Open",true] call BIS_fnc_arsenal; }]; 
+_va addaction ["<t color='#C2BF19'>Change Loadout</t>", { ["Open",true] call BIS_fnc_arsenal; }]; 
 sleep 1;
 _va switchmove "acts_StandingSpeakingUnarmed";
