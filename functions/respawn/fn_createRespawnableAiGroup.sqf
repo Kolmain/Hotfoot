@@ -10,6 +10,7 @@ _insertPoint = [0,0,0];
 _pickupPoint = [0,0,0];
 _spawnedGrp = createGroup _grpSide;
 _wentToStandby = false;
+_respawnPos = [0,0];
 
 switch (_grpSide) do {
     case west: {
@@ -42,18 +43,18 @@ switch (_grpSide) do {
 };
 
 
-_empty = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
+_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
 if (isMultiplayer) then {
 	{
-		_x addEventHandler ["MPKilled",{[{ _this spawn KOL_fnc_minionEH },"BIS_fnc_spawn",true] call BIS_fnc_MP}]
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}]; 
 	}  forEach units _spawnedGrp; 
 } else {
 	{
-		_x addEventHandler ["Killed",{[{ _this spawn KOL_fnc_minionEH },"BIS_fnc_spawn",true] call BIS_fnc_MP}]
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
 	}  forEach units _spawnedGrp; 
 
 };
-if (!hootfoot_intro) then {
+if (!hotfoot_intro) then {
 	{
 	_x moveInCargo _spawnVehicle;
 	 unassignVehicle _x; 
@@ -86,8 +87,10 @@ if (!hootfoot_intro) then {
 	{
 		_x assignAsCargo _insertChopper;
 		_x moveInCargo _insertChopper;
-		//[_x] allowGetIn true;
-		//[_x] orderGetIn true;
+		_rand = random 100;
+		if (_rand > 65) then {
+			[_x] call compile preprocessFile "ais_injury\init_ais.sqf";
+		};
 	} forEach units _spawnedGrp;
 
 
@@ -98,8 +101,12 @@ if (!hootfoot_intro) then {
 		unassignVehicle _x;
 	} forEach units _spawnedGrp;
 	[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
-	
-	switch (_grpSide) do {
+} else {
+	{
+	_x setPos _insertPoint;
+	 } forEach units _spawnedGrp;
+};
+switch (_grpSide) do {
 		case west: {
 			activeGrps_west = activeGrps_west + [_spawnedGrp];
 		};
@@ -110,11 +117,6 @@ if (!hootfoot_intro) then {
 			activeGrps_guerrila = activeGrps_guerrila  + [_spawnedGrp];
 		};
 	};
-} else {
-	{
-	_x setPos _insertPoint;
-	 } forEach units _spawnedGrp;
-};
 //assault hard point
 _attackWP =_spawnedGrp addWaypoint [_hardpoint, 25];
 _attackWP setWPPos _hardpoint;
@@ -132,6 +134,9 @@ while {count _aliveUnits > 2} do
 		if (!alive _x) then { 
 			_aliveUnits = _aliveUnits - [_x];
 			//[{ (leader _spawnedGrp) sideChat "Man down!" },"BIS_fnc_spawn",true] call BIS_fnc_MP;
+			_respawnPos call BIS_fnc_removeRespawnPosition;
+			_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
+			
 		};
 	} forEach _aliveUnits;
 	sleep 1;
@@ -139,8 +144,21 @@ while {count _aliveUnits > 2} do
 
 [(leader _spawnedGrp), format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))]] call KOL_fnc_globalSideChat;
 
+	switch (_grpSide) do {
+		case west: {
+			activeGrps_west = activeGrps_west - [_spawnedGrp];
+		};
+		case east: {
+			activeGrps_east = activeGrps_east - [_spawnedGrp];
+		};
+		case RESISTANCE: {
+			activeGrps_guerrila = activeGrps_guerrila  - [_spawnedGrp];
+		};
+	};
+	
 if (!hotfoot_epilogue) then {
-	_reset = [_grpSide] call KOL_fnc_createRespawnableAiGroup;
+	_reset = [_grpSide] spawn KOL_fnc_createRespawnableAiGroup;
 } else {
 	
 };
+
