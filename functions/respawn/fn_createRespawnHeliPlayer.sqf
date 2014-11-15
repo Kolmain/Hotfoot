@@ -58,6 +58,18 @@ _heliDriver move _pickupPoint;
 _heli setVariable ["transportReady", false, true];
 // _heli lock 3;
 
+if (isMultiplayer) then {
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp; 
+	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+} else {
+	{
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _heliGrp; 
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+};
+
 _empty = [_heli, _grpSide] spawn {
 	_heli = _this select 0;
 	_grpSide = _this select 1;
@@ -81,7 +93,6 @@ _empty = [_heli, _grpSide] spawn {
 [_heli, format["%1 is now servicing all small transport requests, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 while {alive _heli} do 
 {	
-	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 	_heli animateDoor ["doors", 0];
 	_heli animateDoor ["door_L", 0];
 	_heli animateDoor ["door_R", 0];
@@ -96,19 +107,31 @@ while {alive _heli} do
 	_heli animateDoor ["door_R", 1];
 	_heli animateDoor ["doors", 1];
 	_heli setVariable ["transportReady", true, true];
+	//["ExfilNotification",["Player Insertion Transport Arrived",5]] call BIS_fnc_showNotification;
+	[[[_pickupPoint], {
+		if ((player distance (_this select 0)) < 500) then {
+			["TransportAvailable",[]] call BIS_fnc_showNotification;
+		};
+	}], "BIS_fnc_spawn", true] call BIS_fnc_MP;  
 	_heliDriver action ["engineOn", vehicle _heliDriver];
 	
 	
 	
 	
 	_loop = true;
-	[compile format [
-	"_takeOffAction = _heli addaction ["<t color='#C2BF19'>Take Off</t>", { 
-		%1 removeAction %2;
-		%1 setVariable ["transportReady", false, true];
-		[%3, "All in, dust off!"] call KOL_fnc_globalVehicleChat;
-		sleep 2;
-	", (_this select 0), (_this select 2), (_this select 1)], "BIS_fnc_spawn", true] call BIS_fnc_MP;
+	[[[_heli], {
+	
+		(_this select 0) addaction ["<t color='#C2BF19'>Take Off</t>", { 
+			_heli = _this select 0;
+			_caller = _this select 1;
+			_id = _this select 2;
+			_heli removeAction _id;
+			_heli setVariable ["transportReady", false, true];
+			[_caller, "All in, dust off!"] call KOL_fnc_globalVehicleChat;
+			sleep 2;
+		}]
+	}], "BIS_fnc_spawn", true] call BIS_fnc_MP;  
+	
 	while {_loop} do {
 		_ready = true;
 		_ready = _insertChopper getVariable "transportReady";
@@ -116,11 +139,17 @@ while {alive _heli} do
 			[_heli,  format["%1 is departing in 10 seconds with loaded troops, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 			sleep 10;
 			_loop = false;
+			
 		};
 	};
 	
 	_heli setVariable ["transportReady", false, true];
-
+	//["ExfilCommencing",["Player Insertion Transport Departed",5]] call BIS_fnc_showNotification;
+	[[[_pickupPoint], {
+		if ((player distance (_this select 0)) < 500) then {
+			["TransportUnavailable",[]] call BIS_fnc_showNotification;
+		};
+	}], "BIS_fnc_spawn", true] call BIS_fnc_MP;
 	{
 		_x enableAI "MOVE";
 		_x allowFleeing 0;
@@ -175,7 +204,7 @@ while {alive _heli} do
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 	_heli flyInHeight 50;
-	
+	[_heli, format["%1 is heading back to FOB, over.", groupID (group _heli)]] call KOL_fnc_globalSideChat;
 };
 
 
