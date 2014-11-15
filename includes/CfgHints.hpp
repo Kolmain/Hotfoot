@@ -20,7 +20,7 @@ class CfgHints
 		{
 			displayName = "Incapacitation";
 			displayNameShort = "Reviving Allies";
-			description = "If an infantry unit receives too much damage, they may become incapacitated before bleeding out. Once incapacitated, a friendly unit can approach the individual and select %3First Aid%4%3 from their action menu to begin brining the unit back to a combat effective state. Going into an incapacitated state does not count as a death. Friendly units can also %3Drag%4 and %3Carry%4 an incapacitated unit from the action menu. ";
+			description = "If an infantry unit receives too much damage, they may become incapacitated before bleeding out. Once incapacitated, a friendly unit can approach the individual and select %3First Aid%4 from their action menu to begin brining the unit back to a combat effective state. Going into an incapacitated state does not count as a death. Friendly units can also %3Drag%4 and %3Carry%4 an incapacitated unit from the action menu. ";
             tip = "While incapacitated, enemies may ignore you if you lay still. However, if you attempt to move or fire your weapon, you will become an active target again.";
 			arguments[] = {};
 			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
@@ -60,7 +60,7 @@ class CfgHints
 	class Support
 	{
 		displayName = "Support Requests";
-		class artyRequest
+		class artyStrike
 		{
 			displayName = "Artillery Support Request";
 			displayNameShort = "Requesting Artillery";
@@ -70,7 +70,17 @@ class CfgHints
 			image = "\a3\ui_f\data\gui\cfg\hints\ArtilleryCall_ca.paa";
 			noImage = false;
 		};
-		class casRequest
+		class mortarStrike
+		{
+			displayName = "Artillery Support Request";
+			displayNameShort = "Requesting Artillery";
+			description = "Artillery is a precise strike effective against well defended targets.%1<t></t>1. Point at the target.%1<t></t>2. Press %3[0]%4 to enter the command menu.%1<t></t>3. Select %3Communications%4 - %3[8]%4.%1<t></t>4. Select %3Artillery Strike%4.%1<t></t> Artillery support will then confirm the request and report the splash. <t></t> If the coordinates that you sent are unable to be used, the supporting unit will grant you another request.";
+			tip = "Make sure there are no friendly forces in the vicinity of your target. You will be held accountable for friendly fire incidents.";
+			arguments[] = {};
+			image = "\a3\ui_f\data\gui\cfg\hints\ArtilleryCall_ca.paa";
+			noImage = false;
+		};
+		class fixedCasStrike
 		{
 			displayName = "CAS Request";
 			displayNameShort = "Requesting CAS";
