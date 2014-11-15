@@ -13,7 +13,7 @@ _pos2 = [0,0,0];
 
 switch (_grpSide) do {
     case west: {
-		_grp = [getMarkerPos "arespawn_west", WEST ["B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
+		_grp = [getMarkerPos "arespawn_west", WEST, ["B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
 		_rifles = units _grp;
 		_retArray = [getMarkerPos "arespawn_west", 180, "B_MRAP_01_hmg_F", _grp] call bis_fnc_spawnvehicle;
 		_retArray2 = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
@@ -48,7 +48,7 @@ switch (_grpSide) do {
 		_x moveInCargo _vehicle;
 	} forEach _rifles;
 	
-[_caller, format["%2, this is %1, we're requesting a QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
+[_caller, format["%2, this is %1, requesting QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
 [(leader _grp), format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
@@ -97,6 +97,26 @@ if (_dis > 1200) then {
 	_heli flyInHeight 150;
 	_heli lock 3;
 	
+	if (isMultiplayer) then {
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp; 
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _grp; 
+	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	_vehicle addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+} else {
+	{
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _heliGrp; 
+	{
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _grp; 
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	_vehicle addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+};
+
 	waitUntil {(_heli distance _pos < 200)};
 	_heli flyInHeight 0;
 	_heli land "LAND";
