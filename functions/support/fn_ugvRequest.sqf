@@ -41,7 +41,7 @@ switch (_grpSide) do {
 	_heliGrp = _retArray2 select 2;
 	_heliDriver = driver _heli;
 	
-[_caller, format["%2, this is %1, we're requesting a UGV, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
+[_caller, format["%2, this is %1, requesting a UGV, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
 [(leader _grp), format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
@@ -89,7 +89,19 @@ if (_dis > 1200) then {
 	_heliDriver move _pos;
 	_heli flyInHeight 150;
 	_heli lock 3;
-	
+if (isMultiplayer) then {
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp; 
+	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	_vehicle addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+} else {
+	{
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _heliGrp; 
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	_vehicle addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+};
 	waitUntil {(_heli distance _pos < 200)};
 	_heli flyInHeight 0;
 	_heli land "LAND";
