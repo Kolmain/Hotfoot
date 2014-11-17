@@ -41,29 +41,29 @@ class CfgNotifications
 		title = "POINTS DEDUCTED";
 		iconText = "-%2";
 		description = "%1";
-		color[] = {0.5,1,1,1};
+		color[] = {1,0,0,1};
 		priority = 0;
 		difficulty[] = {};
 	};
 	class Objective
 	{
-		title = "ASSAULT OBJECTIVE";
+		title = "NEW TASK ASSIGNED";
 		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIcon_ca.paa";
-		description = "Defeat all enemy forces and exhaust OPFOR reinforcements at target objective.";
+		description = "Assault Pyrgos.";
 		priority = 1;
 	};
 	class Lost
 	{
 		title = "OBJECTIVE FAILED - RETREAT";
 		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIconFailed_ca.paa";
-		description = "Friendly reinforcements have been depleted, fall back to the extraction LZ.";
+		description = "Make it to extraction.";
 		priority = 1;
 	};
 	class Won
 	{
 		title = "OBJECTIVE CAPTURED - ATTACK";
 		iconPicture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
-		description = "OPFOR reinforcements have been depleted, destroy OPFOR remnants.";
+		description = "Destroy OPFOR remnants.";
 		priority = 1;
 	};
 };
