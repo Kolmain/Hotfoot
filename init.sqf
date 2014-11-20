@@ -1,9 +1,7 @@
 enableSaving [false,false];
 enableTeamswitch false;
-private ["_colorWest", "_colorEast"];
-_colorWest = [west] call BIS_fnc_sideColor;
-_colorEast = [east] call BIS_fnc_sidecolor;
 
+/*
 KOL_fnc_initPlayerSupport = compile preprocessfilelinenumbers "functions\support\fn_initPlayerSupports.sqf";
 KOL_fnc_onUnitKilled = compile preprocessfilelinenumbers "functions\handlers\fn_onUnitKilled.sqf";
 KOL_fnc_onPlayerRespawn = compile preprocessfilelinenumbers "functions\respawn\fn_onPlayerRespawn.sqf";
@@ -25,19 +23,5 @@ KOL_fnc_artyStrike = compile preprocessfilelinenumbers "functions\support\fn_art
 KOL_fnc_fixedCasStrike = compile preprocessfilelinenumbers "functions\support\fn_fixedCas.sqf";
 KOL_fnc_qrfRequest = compile preprocessfilelinenumbers "functions\support\fn_qrfRequest.sqf";
 KOL_fnc_ugvRequest = compile preprocessfilelinenumbers "functions\support\fn_ugvRequest.sqf";
+*/
 [] call KOL_fnc_initHotfoot;
-
-// TcB AIS Wounding System --------------------------------------------------------------------------
-if (!isDedicated) then {
-	TCB_AIS_PATH = "ais_injury\";
-	{[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf")} forEach (if (isMultiplayer) then {playableUnits} else {switchableUnits});		// execute for every playable unit
-	
-	//{[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf")} forEach (units group player);													// only own group - you cant help strange group members
-	
-	//{[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf")} forEach [p1,p2,p3,p4,p5];														// only some defined units
-};
-// --------------------------------------------------------------------------------------------------------------
-
-    
-
-	  
