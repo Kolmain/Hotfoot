@@ -67,4 +67,11 @@ class Params
 		values[] = {3, 5, 7, 10, 15, 20};
 		default = 10; 
 	};
+	class nvgs
+	{
+		title = "Night Vision Goggles"; 
+		texts[] = {"All Units Have","No Units Have"};
+		values[] = {0, 1};
+		default = 0; 
+	};
 };
