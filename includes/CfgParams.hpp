@@ -48,4 +48,11 @@ class Params
 		// When 'texts' are missing, values will be displayed directly instead
 		default = 1000;
 	};
+	class pfatigue
+	{
+		title = "Player Fatigue"; 
+		texts[] = {"Disabled","Enabled"};
+		values[] = {0,1};
+		default = 0; 
+	};
 };
