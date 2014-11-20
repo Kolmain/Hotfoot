@@ -24,6 +24,7 @@ while { _loop } do {
 		_name setMarkerShape "RECTANGLE";
 		_name setMarkerSize [100, 100];
 		_name setMarkerColor _color;
+		_name setMarkerAlpha 0.75;
 		_gridmarkers pushBack _name;
 	};
     sleep 10;
