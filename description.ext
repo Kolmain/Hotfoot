@@ -25,6 +25,7 @@ aikills = 0;
 #include "includes\CfgCommunicationMenu.hpp"
 #include "includes\CfgHints.hpp"
 #include "includes\CfgNotifications.hpp"
+#include "includes\CfgFunctions.hpp"
 
 class CfgRespawnTemplates
 {
@@ -44,9 +45,3 @@ class CfgRespawnTemplates
 	};
 };
 
-class RscTitles {
-	#include "ais_injury\dialogs\rscTitlesAIS.hpp"
-};
-class CfgFunctions {
-	#include "ais_injury\cfgFunctionsAIS.hpp"
-};
