@@ -1,0 +1,1 @@
+//track squads per side
