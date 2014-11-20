@@ -1,5 +1,7 @@
 _gridmarkers = [];
-while { true } do {
+_loop = true;
+while { _loop } do {
+	if (isNull (leader _grp)) exitWith { _loop = false };
 	_leader = leader _grp;
 	_grpSide = side _leader;
     {deleteMarker _x} forEach _gridmarkers;
