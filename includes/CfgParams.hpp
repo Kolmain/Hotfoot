@@ -55,4 +55,16 @@ class Params
 		values[] = {0,1};
 		default = 0; 
 	};
+	class scoreToWin
+	{
+		title = "Score To Win"; 
+		values[] = {50, 75, 100, 150, 200, 250, 500};
+		default = 0; 
+	};
+	class supportPointIncrement
+	{
+		title = "Amount of Points Between Support Grants"; 
+		values[] = {3, 5, 7, 10, 15, 20};
+		default = 10; 
+	};
 };
