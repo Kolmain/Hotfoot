@@ -61,25 +61,20 @@ _hitID = player addEventHandler ["Hit",{
 _mus = [] spawn BIS_fnc_jukebox;
 _amb = [] spawn KOL_fnc_createAmbientEnviroment;
 _mark = [player, "PLAYER"] spawn KOL_fnc_unitMarkers;
+_gridMark = [] spawn KOL_fnc_gridMarkers;
 _ao = [aoTrig] spawn BIS_fnc_drawAO; 
-[] spawn KOL_fnc_initPlayerSupports;
-
-
+_supports = [] spawn KOL_fnc_initPlayerSupports;
 _loadout = [(side player)] spawn KOL_fnc_initPlayerLoadout;
-
-
-_colorWest = [west] call BIS_fnc_sideColor;
-_colorEast = [east] call BIS_fnc_sidecolor;
 
 	[
 		hardpoint,
-		"BATTLE OF Pyrgos",//spawns the text
+		"BATTLE OF PYRGOS",//spawns the text
 		400,//height
 		500,//radius
 		10,//angle
 		(random 1),//clockwise\anit-clock
 		[
-			["\A3\ui_f\data\map\markers\flags\Altis_ca.paa", _sideColor, hardpoint,  1, 1, 0, "Pyrgos", 0]
+			["\A3\ui_f\data\map\markers\flags\Altis_ca.paa", [1,1,1], hardpoint,  1, 1, 0, "Pyrgos", 0]
 		],
 		0
 	] call BIS_fnc_establishingShot;
