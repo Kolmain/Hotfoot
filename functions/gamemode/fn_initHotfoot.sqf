@@ -9,7 +9,7 @@ winningSide = west;
 points_west = 0;
 points_east = 0;
 points_guerrila = 0;
-scoreToWin = 100;
+scoreToWin = "scoreToWin" call BIS_fnc_getParamValue
 
 publicVariable "hotfoot_epilogue";
 publicVariable "points_west";
