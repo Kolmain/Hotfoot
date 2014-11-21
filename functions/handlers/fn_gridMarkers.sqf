@@ -1,33 +1,35 @@
-_grp = _this select 0;
-_gridmarkers = [];
-_loop = true;
-while {_loop} do {
-	//if (isNull (leader _grp)) exitWith { _loop = false };
-	_leader = leader _grp;
-	if (!alive _leader) exitWith {_loop = false};
-	_grpSide = side _leader;
-    {deleteMarker _x;} forEach _gridmarkers;
-    _gridmarkers = [];
-	_pos = getPosATL _leader;
-	_px = floor ( (_pos select 0) / 100);
-	_py = floor ( (_pos select 1) / 100);
-	_name = format["grid_%1_%2", _px, _py];
-	//_color = format["Color%1", _grpSide];
-	_color = [_grpSide, true] call BIS_fnc_sideColor;
+   private ["_pos","_px","_py","_nam","_col"];
+        gridmarkers = [];
+        startAlpha = 0.2;
+        changeAlpha = 0.2;
+        while { true } do {
+            {deleteMarkerLocal _x;} count gridmarkers;
+            gridmarkers = [];
+            {
+                if ( !((side _x) isEqualTo civilian) ) then {
+                    _pos = getPosATL _x;
+                    _px = floor ( (_pos select 0) / 100);
+                    _py = floor ( (_pos select 1) / 100);
+                    _nam = format["grid_%1_%2",_px,_py];
+                    _col = format["Color%1",side _x];
 
-	if ((markerShape _name) == "RECTANGLE") then {
-		if ((markerColor _name) == _color) then {
-			// nothing
-		} else {
-			_name setMarkerColor "ColorOrange"; // contested
-		};
-	} else {
-		createMarker[_name, [_px + 50, _py + 50, 0]];
-		_name setMarkerShape "RECTANGLE";
-		_name setMarkerSize [100, 100];
-		_name setMarkerColor _color;
-		_name setMarkerAlpha 0.75;
-		_gridmarkers pushBack _name;
-	};
-    sleep 10;
-};
+                    if ( (markerShape _nam) isEqualTo "RECTANGLE" ) then {
+                        if ( ((markerColor _nam) isEqualTo _col) ) then {
+                            _nam setMarkerAlphaLocal ( (markerAlpha _nam) + changeAlpha);
+                        } else {
+                            _nam setMarkerColorLocal "ColorOrange";
+                            _nam setMarkerAlphaLocal ( (markerAlpha _nam) + changeAlpha);
+                        };
+                    } else {
+                        createMarkerLocal[_nam,[(_px*100)+50,(_py*100)+50,0]];
+                        _nam setMarkerShapeLocal "RECTANGLE";
+                        _nam setMarkerSizeLocal [50,50];
+                        _nam setMarkerColorLocal _col;
+                        _nam setMarkerAlpha startAlpha;
+                        gridmarkers pushBack _nam;
+                    };
+                };
+                true
+            } count allUnits;
+            sleep 10;
+        };  
