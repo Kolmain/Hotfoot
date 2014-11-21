@@ -9,7 +9,7 @@ winningSide = west;
 points_west = 0;
 points_east = 0;
 points_guerrila = 0;
-scoreToWin = 250;
+scoreToWin = 100;
 
 publicVariable "hotfoot_epilogue";
 publicVariable "points_west";
@@ -39,7 +39,6 @@ if (isServer) then {
 	_empty = [west, respawnVehicle_west] spawn BIS_fnc_addRespawnPosition;
 	_empty = [east, respawnVehicle_east] spawn BIS_fnc_addRespawnPosition;
 	_empty = [resistance, respawnVehicle_guerrila] spawn BIS_fnc_addRespawnPosition;
-	if (isMultiplayer) then {
 		_empty = [] spawn {
 			for "_i" from 1 to ("b_teams" call BIS_fnc_getParamValue) do
 			{
@@ -61,23 +60,4 @@ if (isServer) then {
 				sleep 10;
 			};
 		};
-		if (_bteams > 0) then { [west] spawn KOL_fnc_createRespawnHeli; };
-		if (_oteams > 0) then { [east] spawn KOL_fnc_createRespawnHeli; };
-		if (_iteams > 0) then { [independent] spawn KOL_fnc_createRespawnHeli; };
-		sleep 30;
-	} else {
-		for "_i" from 1 to 4 do
-			{
-				[west] spawn KOL_fnc_createRespawnableAiGroup;
-				[east] spawn KOL_fnc_createRespawnableAiGroup;
-				[independent] spawn KOL_fnc_createRespawnableAiGroup;
-				sleep 10;
-			};
-		[west] spawn KOL_fnc_createRespawnHeli; 
-		[east] spawn KOL_fnc_createRespawnHeli; 
-		[independent] spawn KOL_fnc_createRespawnHeli; 
-	};
 };
-
-hotfoot_intro = false;
-publicVariable "hotfoot_intro";

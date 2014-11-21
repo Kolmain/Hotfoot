@@ -42,8 +42,10 @@ switch (_grpSide) do {
 	};
 };
 
+[_spawnedGrp] spawn KOL_fnc_gridMarkers;
+[(leader _spawnedGrp), "b_inf"] spawn KOL_fnc_unitMarkers;
 
-_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
+
 if (isMultiplayer) then {
 	{
 		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}]; 
@@ -54,69 +56,15 @@ if (isMultiplayer) then {
 	}  forEach units _spawnedGrp; 
 
 };
-if (!hotfoot_intro) then {
-	{
-	_x moveInCargo _spawnVehicle;
-	 unassignVehicle _x; 
-	 doGetOut _x;
-	 //[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf");
-	 } forEach units _spawnedGrp;
-	 
-	_standbyWP =_spawnedGrp addWaypoint [_standbyPos, 5];
-	_standbyWP setWPPos _standbyPos;
-	_standbyWP setWaypointBehaviour "SAFE";
-	_standbyWP setWaypointCombatMode "RED";
-	_standbyWP setWaypointSpeed "NORMAL";
-	_standbyWP setWaypointType "MOVE";
-	_standbyWP setWaypointFormation "DIAMOND";
 
-	_loop = true;
-	_ready = false;
-	while {_loop} do {
-		_ready = _insertChopper getVariable "transportReady";
-		_assignedCount = count (assignedCargo _insertChopper);
-		if (_assignedCount >= 8) then {
-		_loop = true;
-		} else {
-			if (_ready) then { _loop = false };
-		};
-	};
-
-	//get in chopper
-	deleteWaypoint _standbyWP;
-	{
-		_x assignAsCargo _insertChopper;
-		_x moveInCargo _insertChopper;
-		_rand = random 100;
-		if (_rand > 65) then {
-			[_x] call compile preprocessFile "ais_injury\init_ais.sqf";
-		};
-	} forEach units _spawnedGrp;
-
-
-	//wait for chopper to land at ins
-	waitUntil {_insertChopper distance _insertPoint < 100};
-	waitUntil {(isTouchingGround _insertChopper)};
-	{
-		unassignVehicle _x;
-	} forEach units _spawnedGrp;
-	[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
-} else {
-	{
+{
 	_x setPos _insertPoint;
-	 } forEach units _spawnedGrp;
-};
-switch (_grpSide) do {
-		case west: {
-			activeGrps_west = activeGrps_west + [_spawnedGrp];
-		};
-		case east: {
-			activeGrps_east = activeGrps_east + [_spawnedGrp];
-		};
-		case RESISTANCE: {
-			activeGrps_guerrila = activeGrps_guerrila  + [_spawnedGrp];
-		};
-	};
+} forEach units _spawnedGrp;
+
+[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
+_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
+
+/*
 //assault hard point
 _attackWP =_spawnedGrp addWaypoint [_hardpoint, 25];
 _attackWP setWPPos _hardpoint;
@@ -125,6 +73,8 @@ _attackWP setWaypointCombatMode "RED";
 _attackWP setWaypointSpeed "NORMAL";
 _attackWP setWaypointType "SAD";
 _attackWP setWaypointFormation "DIAMOND";
+*/
+[(leader _spawnedGrp) , "city", "ASSUALT"] execvm "scripts\UPSMON.sqf";
 
 
 _aliveUnits = units _spawnedGrp;
@@ -144,17 +94,7 @@ while {count _aliveUnits > 2} do
 
 [(leader _spawnedGrp), format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))]] call KOL_fnc_globalSideChat;
 
-	switch (_grpSide) do {
-		case west: {
-			activeGrps_west = activeGrps_west - [_spawnedGrp];
-		};
-		case east: {
-			activeGrps_east = activeGrps_east - [_spawnedGrp];
-		};
-		case RESISTANCE: {
-			activeGrps_guerrila = activeGrps_guerrila  - [_spawnedGrp];
-		};
-	};
+sleep (random 30);
 	
 if (!hotfoot_epilogue) then {
 	_reset = [_grpSide] spawn KOL_fnc_createRespawnableAiGroup;

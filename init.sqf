@@ -22,5 +22,5 @@ weatherFog = "weatherFog" call BIS_fnc_getParamValue;
 TimeHour = "TimeHour" call BIS_fnc_getParamValue; 
 if (isNil "curTimeHour") then {curTimeHour = 9}; 
 setDate [2035, 7, 4, curTimeHour, 0];  
-
+call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 [] call KOL_fnc_initHotfoot;

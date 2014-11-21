@@ -18,9 +18,9 @@ while { true } do {
 			_newSupport = "mortarStrike";
 		};
 		case "mortarStrike": {
-			_newSupport = "fixedCasStrike";
+			_newSupport = "fixedCas";
 		};
-		case "fixedCasStrike": {
+		case "fixedCas": {
 			_newSupport = "ugvRequest";
 		};
 		case "ugvRequest": {

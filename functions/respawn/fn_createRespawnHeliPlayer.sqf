@@ -57,7 +57,7 @@ _heliGrp = group _heliDriver;
 _heliDriver move _pickupPoint;
 _heli setVariable ["transportReady", false, true];
 // _heli lock 3;
-
+[(leader _heliGrp), "b_air"] spawn KOL_fnc_unitMarkers;
 if (isMultiplayer) then {
 	{
 		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];

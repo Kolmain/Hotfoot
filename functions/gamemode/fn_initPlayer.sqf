@@ -60,8 +60,9 @@ _hitID = player addEventHandler ["Hit",{
 
 _mus = [] spawn BIS_fnc_jukebox;
 _amb = [] spawn KOL_fnc_createAmbientEnviroment;
+_mark = [player, "PLAYER"] spawn KOL_fnc_unitMarkers;
 _ao = [aoTrig] spawn BIS_fnc_drawAO; 
-[] spawn KOL_fnc_initPlayerSupport;
+[] spawn KOL_fnc_initPlayerSupports;
 
 
 _loadout = [(side player)] spawn KOL_fnc_initPlayerLoadout;
