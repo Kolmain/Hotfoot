@@ -1,164 +1,93 @@
-_grpSide = _this select 0;
-
+_grpSide = (_this select 0);
 if (_grpSide == independent) then {_grpSide = RESISTANCE;};
-_hardpoint = hardpoint;
-_spawnPoint = [0,0,0];
-_spawnVehicle = init_obj;
-_standbyPos = [0,0,0];
-_insertChopper = init_obj;
-_insertPoint = [0,0,0];
-_pickupPoint = [0,0,0];
-_spawnedGrp = createGroup _grpSide;
-_wentToStandby = false;
-_respawnPos = [0,0];
+_grp = group player;
+_pos2 = [0,0,0];
+_pos = [0,0,0]; //select LZ
 
 switch (_grpSide) do {
     case west: {
-		_spawnedGrp = [getMarkerPos "arespawn_west", WEST, (configFile >> "CfgGroups" >> "WEST" >> "BLU_F" >> "Infantry" >> "BUS_InfTeam")] call BIS_fnc_spawnGroup;
-		_spawnPoint = getMarkerPos "arespawn_west";
-		_spawnVehicle = respawnVehicle_west;
-		_standbyPos = standbyPos_west;
-		_insertChopper = insertionChopper_west;
-		_insertPoint = insertionPoint_west;
-		_pickupPoint = pickupPoint_west;
+		_grp = [getMarkerPos "arespawn_west", WEST, (configFile >> "CfgGroups" >> "WEST" >> "BLU_F" >> "Infantry" >> "BUS_InfTeam")] call BIS_fnc_spawnGroup;
+		_rifles = units _grp;
+		_retArray2 = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
+		_pos2 = getMarkerPos "arespawn_west";
 	};
     case east: {
-		_spawnedGrp = [getMarkerPos "arespawn_east", EAST, (configFile >> "CfgGroups" >> "EAST" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-		_spawnPoint = getMarkerPos "arespawn_east";
-		_spawnVehicle = respawnVehicle_east;
-		_standbyPos = standbyPos_east;
-		_insertChopper = insertionChopper_east;
-		_insertPoint = insertionPoint_east;
-		_pickupPoint = pickupPoint_east;
+		_grp = [getMarkerPos "arespawn_east", EAST, (configFile >> "CfgGroups" >> "EAST" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+		_rifles = units _grp;
+		_retArray2 = [getMarkerPos "arespawn_east", 180, "O_Heli_Transport_04_F", EAST] call bis_fnc_spawnvehicle;
+		_pos2 = getMarkerPos "arespawn_east";
 	};
-	case RESISTANCE: {
-		_spawnedGrp = [getMarkerPos "arespawn_guerrila", RESISTANCE, (configFile >> "CfgGroups" >> "INDEP" >> "IND_F" >> "Infantry" >> "HAF_InfTeam")] call BIS_fnc_spawnGroup;
-		_spawnPoint = getMarkerPos "arespawn_guerrila";
-		_spawnVehicle = respawnVehicle_guerrila;
-		_standbyPos = standbyPos_guerrila;
-		_insertChopper = insertionChopper_guerrila;
-		_insertPoint = insertionPoint_guerrila;
-		_pickupPoint = pickupPoint_guerrila;
+    case RESISTANCE: {
+		_grp = [getMarkerPos "arespawn_guerrila", RESISTANCE, (configFile >> "CfgGroups" >> "INDEP" >> "IND_F" >> "Infantry" >> "HAF_InfTeam")] call BIS_fnc_spawnGroup;
+		_rifles = units _grp;
+		_retArray2 = [getMarkerPos "arespawn_guerrila", 180, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		_pos2 = getMarkerPos "arespawn_guerrila";
 	};
 };
 
-
-_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
-if (isMultiplayer) then {
+	_heli = _retArray2 select 0;
+	_heliCrew = _retArray2 select 1;
+	_heliGrp = _retArray2 select 2;
+	_heliDriver = driver _heli;
+	
 	{
-		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}]; 
-	}  forEach units _spawnedGrp; 
+		_x assignAsCargo _heli;
+		_x moveInCargo _heli;
+	} forEach units _grp;
+	
+[_caller, format["%2, this is %1, requesting QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
+sleep 3;
+[(leader _grp), format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
+sleep 3;
+[_caller, format["Grid %1, over.", mapGridPosition _pos]] call KOL_fnc_globalSideChat;
+sleep 3;
+
+	_heliDriver disableAI "FSM";
+	_heliDriver disableAI "TARGET";
+	_heliDriver disableAI "AUTOTARGET";
+	_heliGrp setBehaviour "AWARE";
+	_heliGrp setCombatMode "RED";
+	_heliGrp setSpeedMode "NORMAL";
+	
+	_heliDriver move _pos;
+	_heli flyInHeight 150;
+	_heli lock 3;
+	
+	if (isMultiplayer) then {
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp; 
+	{
+		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _grp; 
+	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
 } else {
 	{
 		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
-	}  forEach units _spawnedGrp; 
-
-};
-if (!hotfoot_intro) then {
+	}  forEach units _heliGrp; 
 	{
-	_x moveInCargo _spawnVehicle;
-	 unassignVehicle _x; 
-	 doGetOut _x;
-	 //[_x] call compile preprocessFile (TCB_AIS_PATH+"init_ais.sqf");
-	 } forEach units _spawnedGrp;
-	 
-	_standbyWP =_spawnedGrp addWaypoint [_standbyPos, 5];
-	_standbyWP setWPPos _standbyPos;
-	_standbyWP setWaypointBehaviour "SAFE";
-	_standbyWP setWaypointCombatMode "RED";
-	_standbyWP setWaypointSpeed "NORMAL";
-	_standbyWP setWaypointType "MOVE";
-	_standbyWP setWaypointFormation "DIAMOND";
-
-	_loop = true;
-	_ready = false;
-	while {_loop} do {
-		_ready = _insertChopper getVariable "transportReady";
-		_assignedCount = count (assignedCargo _insertChopper);
-		if (_assignedCount >= 8) then {
-		_loop = true;
-		} else {
-			if (_ready) then { _loop = false };
-		};
-	};
-
-	//get in chopper
-	deleteWaypoint _standbyWP;
-	{
-		_x assignAsCargo _insertChopper;
-		_x moveInCargo _insertChopper;
-		_rand = random 100;
-		if (_rand > 65) then {
-			[_x] call compile preprocessFile "ais_injury\init_ais.sqf";
-		};
-	} forEach units _spawnedGrp;
-
-
-	//wait for chopper to land at ins
-	waitUntil {_insertChopper distance _insertPoint < 100};
-	waitUntil {(isTouchingGround _insertChopper)};
-	{
-		unassignVehicle _x;
-	} forEach units _spawnedGrp;
-	[(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
-} else {
-	{
-	_x setPos _insertPoint;
-	 } forEach units _spawnedGrp;
-};
-switch (_grpSide) do {
-		case west: {
-			activeGrps_west = activeGrps_west + [_spawnedGrp];
-		};
-		case east: {
-			activeGrps_east = activeGrps_east + [_spawnedGrp];
-		};
-		case RESISTANCE: {
-			activeGrps_guerrila = activeGrps_guerrila  + [_spawnedGrp];
-		};
-	};
-//assault hard point
-_attackWP =_spawnedGrp addWaypoint [_hardpoint, 25];
-_attackWP setWPPos _hardpoint;
-_attackWP setWaypointBehaviour "AWARE";
-_attackWP setWaypointCombatMode "RED";
-_attackWP setWaypointSpeed "NORMAL";
-_attackWP setWaypointType "SAD";
-_attackWP setWaypointFormation "DIAMOND";
-
-
-_aliveUnits = units _spawnedGrp;
-while {count _aliveUnits > 2} do
-{
-	{ 
-		if (!alive _x) then { 
-			_aliveUnits = _aliveUnits - [_x];
-			//[{ (leader _spawnedGrp) sideChat "Man down!" },"BIS_fnc_spawn",true] call BIS_fnc_MP;
-			_respawnPos call BIS_fnc_removeRespawnPosition;
-			_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
-			
-		};
-	} forEach _aliveUnits;
-	sleep 1;
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+	}  forEach units _grp; 
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
 };
 
-[(leader _spawnedGrp), format["This is %2, %1 has taken causalities and are in need of reinforcements!", groupID _spawnedGrp, (name (leader _spawnedGrp))]] call KOL_fnc_globalSideChat;
-
-	switch (_grpSide) do {
-		case west: {
-			activeGrps_west = activeGrps_west - [_spawnedGrp];
-		};
-		case east: {
-			activeGrps_east = activeGrps_east - [_spawnedGrp];
-		};
-		case RESISTANCE: {
-			activeGrps_guerrila = activeGrps_guerrila  - [_spawnedGrp];
-		};
-	};
-	
-if (!hotfoot_epilogue) then {
-	_reset = [_grpSide] spawn KOL_fnc_createRespawnableAiGroup;
-} else {
-	
+	waitUntil {(_heli distance _pos < 200)};
+	_heli flyInHeight 0;
+	_heli land "LAND";
+	waitUntil {(isTouchingGround _heli)};
+	_grp leaveVehicle _heli;
+	[(leader _grp) , "city", "ASSUALT"] execvm "scripts\UPSMON.sqf";
+	sleep 8;
+	_heli land "NONE";
+	_heliDriver move _pos2;
+	_heli flyInHeight 90;
+	waitUntil {(_heli distance _pos2 < 300)};
+	{
+		deleteVehicle _x;
+	} forEach _heliCrew;
+	deleteVehicle _heli;
+	deleteGroup _heliGrp;
 };
+
+
 
