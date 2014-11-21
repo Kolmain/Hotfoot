@@ -42,7 +42,6 @@ switch (_grpSide) do {
 	};
 };
 
-[_spawnedGrp] spawn KOL_fnc_gridMarkers;
 [(leader _spawnedGrp), "b_inf"] spawn KOL_fnc_unitMarkers;
 
 
