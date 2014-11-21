@@ -1,4 +1,4 @@
-_increment = 15; //increments of 15
+_increment = "supportPointIncrement" call BIS_fnc_getParamValue; //increments of 15
 _score = 0;
 _lastSupportScore = 0;
 _lastSupport = "nil";
