@@ -85,14 +85,6 @@ if (_dis > 1200) then {
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 	
-	_attackWP =_grp addWaypoint [_hardpoint, 25];
-	_attackWP setWPPos _hardpoint;
-	_attackWP setWaypointBehaviour "AWARE";
-	_attackWP setWaypointCombatMode "RED";
-	_attackWP setWaypointSpeed "NORMAL";
-	_attackWP setWaypointType "SAD";
-	_attackWP setWaypointFormation "DIAMOND";
-	
 	_heliDriver move _pos;
 	_heli flyInHeight 150;
 	_heli lock 3;
@@ -125,6 +117,7 @@ if (_dis > 1200) then {
 		ropeCut [ _x, 5];
 	} forEach ropes _heli;
 	[(leader _grp), format["Be advised, QRF %1 is in the AO and engaging hostiles, out.", groupID _grp]] call KOL_fnc_globalSideChat;
+	[(leader _grp) , "city", "ASSUALT"] execvm "scripts\UPSMON.sqf";
 	_heli land "NONE";
 	_heliDriver move _pos2;
 	_heli flyInHeight 90;
