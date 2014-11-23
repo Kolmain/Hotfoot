@@ -38,7 +38,7 @@ class Params
 		texts[] = {"No Fog","Light Fog","Medium Fog","Heavy Fog", "Random Fog"};
 		values[] = {0,1,2,3,4,5};
 		// When 'texts' are missing, values will be displayed directly instead
-		default = 1000;
+		default = 1;
 	};
 	class weatherClouds  
 	{
@@ -46,7 +46,7 @@ class Params
 		texts[] = {"Clear","Partly Cloudy","Light Rain","Heavy Rain", "Random Weather"};
 		values[] = {0,1,2,3,4,5};
 		// When 'texts' are missing, values will be displayed directly instead
-		default = 1000;
+		default = 1;
 	};
 	class pfatigue
 	{
@@ -55,11 +55,11 @@ class Params
 		values[] = {0,1};
 		default = 0; 
 	};
-	class scoreToWin
+	class winScore
 	{
 		title = "Score To Win"; 
 		values[] = {50, 75, 100, 150, 200, 250, 500};
-		default = 0; 
+		default = 150; 
 	};
 	class supportPointIncrement
 	{

@@ -9,7 +9,7 @@ winningSide = west;
 points_west = 0;
 points_east = 0;
 points_guerrila = 0;
-scoreToWin = "scoreToWin" call BIS_fnc_getParamValue;
+scoreToWin = "winScore" call BIS_fnc_getParamValue;
 
 publicVariable "hotfoot_epilogue";
 publicVariable "points_west";
@@ -23,6 +23,7 @@ publicVariable "KOL_debug";
 
 _gear = [west, 'rifleman_west'] call BIS_fnc_addRespawnInventory;
 _gear = [west, "grenadier_west"] call BIS_fnc_addRespawnInventory;
+_gear = [west, "at_west"] call BIS_fnc_addRespawnInventory;
 _gear = [west, "autorifleman_west"] call BIS_fnc_addRespawnInventory;
 _gear = [west, "sniper_west"] call BIS_fnc_addRespawnInventory;
 _gear = [west, "specops_west"] call BIS_fnc_addRespawnInventory;
@@ -32,13 +33,7 @@ if (!isDedicated) then {
 };
 
 if (isServer) then {
-	[east] spawn KOL_fnc_createRespawnHeliPlayer;
-	[west] spawn KOL_fnc_createRespawnHeliPlayer;
-	[independent] spawn KOL_fnc_createRespawnHeliPlayer;
 	[] spawn KOL_fnc_gameEndLoop;
-	_empty = [west, respawnVehicle_west] spawn BIS_fnc_addRespawnPosition;
-	_empty = [east, respawnVehicle_east] spawn BIS_fnc_addRespawnPosition;
-	_empty = [resistance, respawnVehicle_guerrila] spawn BIS_fnc_addRespawnPosition;
 		_empty = [] spawn {
 			for "_i" from 1 to ("b_teams" call BIS_fnc_getParamValue) do
 			{

@@ -21,7 +21,7 @@ switch (_grpSide) do {
 	};
 };
 
-[(leader _spawnedGrp), "b_inf"] spawn KOL_fnc_unitMarkers;
+//[(leader _spawnedGrp), "b_inf"] spawn KOL_fnc_unitMarkers;
 
 
 if (isMultiplayer) then {
@@ -37,7 +37,7 @@ if (isMultiplayer) then {
 {
 	_x moveInCargo _spawnVehicle;
 } forEach units _spawnedGrp;
-
+_spawnedGrp leaveVehicle _spawnVehicle;
 [(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;
 _respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
 
