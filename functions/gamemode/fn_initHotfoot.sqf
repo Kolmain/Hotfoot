@@ -49,3 +49,11 @@ if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
 		_x removeItem "NVGoggles_INDEP";
 	} forEach allUnits;
 };
+
+{
+	if (!(_x isKindOf "Man")) then {
+		clearItemCargoGlobal _x;
+		clearWeaponCargoGlobal _x;
+		clearMagazineCargoGlobal _x;
+	};
+} forEach allUnits;
