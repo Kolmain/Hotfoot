@@ -1,3 +1,5 @@
+private ["_caller","_pos","_is3D","_ID","_grpSide","_grp","_ugvArray","_ugv","_pos2","_spawnPos","_retArray","_retArray2","_vehicle","_crew","_heli","_heliCrew","_heliGrp","_heliDriver","_dis","_newQrf","_lz","_distanceToLz","_shortestDistance"];
+
 _caller = _this select 0;
 _pos = _this select 1;
 _target = _this select 2;
@@ -13,21 +15,27 @@ _pos2 = [0,0,0];
 
 switch (_grpSide) do {
     case west: {
+    	_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
 		_pos2 = getMarkerPos "arespawn_west";
-		_retArray = [_pos2, 0, "B_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
-		_retArray2 = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
+		_retArray = [_spawnPos, 0, "B_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
+		_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
 
 	};
     case east: {
 		_pos2 = getMarkerPos "arespawn_east";
-		_retArray = [_pos2, 0, "O_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
-		_retArray2 = [getMarkerPos "arespawn_east", 180, "O_Heli_Transport_04_F", EAST] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_east"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray = [_spawnPos, 0, "O_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
+		_spawnPos = [(getMarkerPos "arespawn_east"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "O_Heli_Transport_04_F", EAST] call bis_fnc_spawnvehicle;
 
 	};
     case RESISTANCE: {
 		_pos2 = getMarkerPos "arespawn_guerrila";
-		_retArray = [_pos2, 0, "I_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
-		_retArray2 = [getMarkerPos "arespawn_guerrila", 180, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_guerrila"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray = [_spawnPos, 0, "I_UGV_01_rcws_F", WEST] call BIS_fnc_spawnVehicle;
+		_spawnPos = [(getMarkerPos "arespawn_guerrila"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
 
 	};
 };

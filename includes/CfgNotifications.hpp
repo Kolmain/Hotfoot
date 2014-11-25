@@ -11,8 +11,14 @@ class CfgNotifications
 		priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
 		difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
 	};
- 
-	// Examples
+
+	class promoted
+	{
+		title = "FIELD PROMOTION";
+		iconPicture = "\A3\Ui_f\data\IGUI\Cfg\Actions\open_door_ca.paa";
+		description = "You've been promoted!";
+		priority = 1;
+	};
 	class TransportAvailable
 	{
 		title = "TRANSPORT AVAILABLE";

@@ -283,9 +283,5 @@ items[] = {"FirstAidKit"};
 linkedItems[] = {"V_PlateCarrierIA2_dgtl","H_HelmetIA_camo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","I_UavTerminal","NVGoggles_INDEP"};
 
 	};
-
-
-
-
 };
 

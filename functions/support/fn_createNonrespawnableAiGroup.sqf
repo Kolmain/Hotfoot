@@ -12,17 +12,20 @@ _heliGrp = createGroup _grpSide;
 
 switch (_grpSide) do {
     case west: {
-		_spawnedGrp = [getMarkerPos "arespawn_west", WEST, (configFile >> "CfgGroups" >> "WEST" >> "BLU_F" >> "Infantry" >> "BUS_InfSquad")] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_spawnedGrp = [_spawnPos, WEST, (configFile >> "CfgGroups" >> "WEST" >> "BLU_F" >> "Infantry" >> "BUS_InfSquad")] call BIS_fnc_spawnGroup;
 		_retArray = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", _heliGrp] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_west";
 	};
     case east: {
-		_spawnedGrp = [getMarkerPos "arespawn_east", EAST, (configFile >> "CfgGroups" >> "EAST" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_spawnedGrp = [_spawnPos, EAST, (configFile >> "CfgGroups" >> "EAST" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
 		_retArray = [getMarkerPos "arespawn_east", 180, "O_Heli_Transport_04_F", _heliGrp] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_east";
 	};
     case RESISTANCE: {
-		_spawnedGrp = [getMarkerPos "arespawn_guerrila", RESISTANCE, (configFile >> "CfgGroups" >> "INDEP" >> "IND_F" >> "Infantry" >> "HAF_InfSquad")] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_spawnedGrp = [_spawnPos, RESISTANCE, (configFile >> "CfgGroups" >> "INDEP" >> "IND_F" >> "Infantry" >> "HAF_InfSquad")] call BIS_fnc_spawnGroup;
 		_retArray = [getMarkerPos "arespawn_guerrila", 180, "I_Heli_Transport_02_F", _heliGrp] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_guerrila";
 	};

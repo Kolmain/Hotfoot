@@ -1,3 +1,5 @@
+private ["_caller","_pos","_is3D","_ID","_grpSide","_grp","_rifles","_pos2","_spawnPos","_retArray","_retArray2","_vehicle","_crew","_retArary","_heli","_heliCrew","_heliGrp","_heliDriver","_dis","_newQrf","_lz","_distanceToLz","_shortestDistance"];
+
 _caller = _this select 0;
 _pos = _this select 1;
 _target = _this select 2;
@@ -13,24 +15,33 @@ _pos2 = [0,0,0];
 
 switch (_grpSide) do {
     case west: {
-		_grp = [getMarkerPos "arespawn_west", WEST, ["B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_grp = [_spawnPos, WEST, ["B_soldier_F", "B_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
 		_rifles = units _grp;
-		_retArray = [getMarkerPos "arespawn_west", 180, "B_MRAP_01_hmg_F", _grp] call bis_fnc_spawnvehicle;
-		_retArray2 = [getMarkerPos "arespawn_west", 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray = [_spawnPos, 180, "B_MRAP_01_hmg_F", _grp] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_west"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "B_Heli_Transport_03_F", WEST] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_west";
 	};
     case east: {
-		_grp = [getMarkerPos "arespawn_west", EAST, ["O_Soldier_F", "O_Soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_east"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_grp = [_spawnPos, EAST, ["O_Soldier_F", "O_Soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
 		_rifles = units _grp;
-		_retArray = [getMarkerPos "arespawn_east", 180, "O_MRAP_02_hmg_F", _grp] call bis_fnc_spawnvehicle;
-		_retArray2 = [getMarkerPos "arespawn_east", 180, "O_Heli_Transport_04_F", EAST] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_east"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray = [_spawnPos, 180, "O_MRAP_02_hmg_F", _grp] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_east"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "O_Heli_Transport_04_F", EAST] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_east";
 	};
     case RESISTANCE: {
-		_grp = [getMarkerPos "arespawn_west", RESISTANCE, ["I_soldier_F", "I_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
+    	_spawnPos = [(getMarkerPos "arespawn_guerrila"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_grp = [_spawnPos, RESISTANCE, ["I_soldier_F", "I_soldier_F"],[],[],[],[],[],180] call BIS_fnc_spawnGroup;
 		_rifles = units _grp;
-		_retArray = [getMarkerPos "arespawn_west", 180, "I_MRAP_03_hmg_F", _grp] call bis_fnc_spawnvehicle;
-		_retArray2 = [getMarkerPos "arespawn_guerrila", 180, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_guerrila"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray = [_spawnPos, 180, "I_MRAP_03_hmg_F", _grp] call bis_fnc_spawnvehicle;
+		_spawnPos = [(getMarkerPos "arespawn_guerrila"), 10, 500, 10, 0, 2, 0] call BIS_fnc_findSafePos;
+		_retArray2 = [_spawnPos, 180, "I_Heli_Transport_02_F", RESISTANCE] call bis_fnc_spawnvehicle;
 		_pos2 = getMarkerPos "arespawn_guerrila";
 	};
 };

@@ -51,6 +51,13 @@ class Params
 		values[] = {50, 75, 100, 150, 200, 250, 500};
 		default = 150;
 	};
+	class aiSupportTime
+	{
+		title = "Time Between AI Support Requests";
+		texts[] = {"1 minute","3 minutes", "5 minutes", "7 minutes", "10 minutes"};
+		values[] = {60, 180, 300, 420, 600};
+		default = 300;
+	};
 	class supportPointIncrement
 	{
 		title = "Amount of Points Between Support Requests";

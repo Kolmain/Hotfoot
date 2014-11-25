@@ -10,7 +10,6 @@ class CfgCommunicationMenu
         enable = "1"; // Simple expression condition for enabling the item
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
-
     class artyStrike
     {
         text = "Artillery Support"; // Text displayed in the menu and in a notification
@@ -31,7 +30,6 @@ class CfgCommunicationMenu
         enable = "1"; // Simple expression condition for enabling the item
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
-
     class RotorCasStrike
     {
         text = "Close Air Support (Rotor)"; // Text displayed in the menu and in a notification
@@ -42,7 +40,6 @@ class CfgCommunicationMenu
         enable = "1"; // Simple expression condition for enabling the item
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
-
     class qrfRequest
     {
         text = "Quick Reaction Force"; // Text displayed in the menu and in a notification
@@ -63,7 +60,6 @@ class CfgCommunicationMenu
         enable = "1"; // Simple expression condition for enabling the item
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
-
     class squadReinforcement
     {
         text = "Infantry Reinforcement"; // Text displayed in the menu and in a notification

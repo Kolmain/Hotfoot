@@ -4,7 +4,7 @@ enableTeamswitch false;
 hotfoot_epilogue = false;
 hotfoot_intro = true;
 KOL_debug = true;
-landingArray = [(getPos landingArrayStart)];
+landingArray = [];
 winningSide = sideLogic;
 points_west = 0;
 points_east = 0;
