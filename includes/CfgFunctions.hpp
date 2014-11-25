@@ -173,14 +173,14 @@ class CfgFunctions
 				recompile = 1; // 1 to recompile the function upon mission start
 				ext = ".sqf"; // Set file type, can be ".sqf" or ".fsm" (meaning scripted FSM). Default is ".sqf".
 			};
-			class unitMarkers
+			class gameEndLoop
 			{
 				preInit = 0; // 1 to call the function upon mission start, before objects are initialized. Passed arguments are ["preInit"]
 				postInit = 0; // 1 to call the function upon mission start, after objects are initialized. Passed arguments are ["postInit"]
 				recompile = 1; // 1 to recompile the function upon mission start
 				ext = ".sqf"; // Set file type, can be ".sqf" or ".fsm" (meaning scripted FSM). Default is ".sqf".
 			};
-			class gameEndLoop
+			class rankHandler
 			{
 				preInit = 0; // 1 to call the function upon mission start, before objects are initialized. Passed arguments are ["preInit"]
 				postInit = 0; // 1 to call the function upon mission start, after objects are initialized. Passed arguments are ["postInit"]

@@ -20,7 +20,7 @@ while {_loop} do {
 		} else {
 			if (points_guerrila >= scoreToWin) then {
 				_loop = false;
-				winningSide = independent;
+				winningSide = RESISTANCE;
 				publicVariable "winningSide";
 				[] spawn KOL_fnc_epilogue;
 			};

@@ -37,15 +37,15 @@
 					_name setMarkerShapeLocal "ICON";
 					_name setMarkerColorLocal _color;
 					if (isPlayer _x) then {
-					  _name setMarkerTextLocal format["%1", name _x];
-					  _name setMarkerTypeLocal "waypoint"; 
+					  _name setMarkerTextLocal format["%1 %2", rank _x, name _x];
+					  _name setMarkerTypeLocal "waypoint";
 					} else {
 					  _name setMarkerTextLocal format["%1", groupID group _x];
-					  _name setMarkerTypeLocal "b_inf"; 
+					  _name setMarkerTypeLocal "b_inf";
 					};
 					gridmarkers pushBack _name;
 				};
                 true
             } count allUnits;
             sleep 10;
-        };  
+        };

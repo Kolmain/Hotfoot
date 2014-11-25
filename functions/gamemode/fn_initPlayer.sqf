@@ -1,3 +1,5 @@
+private ["_sideColor","_vis","_pos","_y","_hitID","_handleHealID","_score","_mus","_amb","_mark","_gridMark","_ao","_supports","_loadout"];
+
 _sideColor = [(side player)] call BIS_fnc_sideColor;
 setViewDistance ("viewDistanceParam" call BIS_fnc_getParamValue);
 ["armory3DText", "onEachFrame", {
@@ -54,6 +56,18 @@ _hitID = player addEventHandler ["Hit",{
 		[["damage","fak"], 15, "", 35, "", true, true, true, true] call BIS_fnc_advHint;
 		player removeEventHandler ["Hit", 0];
 	};
+}];
+
+_handleHealID = player addEventHandler ["HandleHeal",{
+	[[[_this select 1], {
+		if (player == (_this select 1)) then {
+			_score = player getVariable "KOL_score";
+			_score = _score + 1;
+			player setVariable ["KOL_score", _score, true];
+			["PointsAdded",["Applied FAK to Friendly Unit", 1]] call BIS_fnc_showNotification;
+			[player, 1] call BIS_fnc_addScore;
+		};
+	}], "BIS_fnc_spawn", true] call BIS_fnc_MP;
 }];
 
 

@@ -41,7 +41,7 @@ class CfgHints
 			displayName = "Opposing Forces";
 			displayNameShort = "OPFOR";
 			description = "During this mission you will have a bountiful amount of enemies. These enemies range from infantry to transport vehicles, and each will provide you with a different amount of points for a secured kill. A kill notification will be displayed if you visually witness your kill being secured. Targeting the OPFOR transportation vehicles will slow their rate of reinforcement, and skew the battle in your favor.";
-            tip = "If you don't receive the kill notification, it doesn't mean you didn't necessarily secure the kill, only you did not see it.";
+            tip = "If you don't receive the kill notification, it doesn't mean you didn't necessarily secure the kill, only you did not see it!";
 			arguments[] = {};
 			image = "\a3\ui_f\data\gui\cfg\hints\Miss_icon_ca.paa";
 			noImage = false;

@@ -2,21 +2,21 @@ class Params
 {
 	class b_teams
 	{
-		title = "BLUFOR AI Fireteams"; 
+		title = "BLUFOR AI Fireteams";
 		values[] = {0,2,4,6};
-		default = 2; 
+		default = 2;
 	};
 	class o_teams
 	{
-		title = "OPFOR AI Fireteams"; 
+		title = "OPFOR AI Fireteams";
 		values[] = {0,2,4,6};
-		default = 4; 
+		default = 4;
 	};
 	class i_teams
 	{
-		title = "INDFOR AI Fireteams"; 
+		title = "INDFOR AI Fireteams";
 		values[] = {0,2,4,6};
-		default = 4; 
+		default = 4;
 	};
 	class AISkill
 	{
@@ -32,46 +32,42 @@ class Params
 		values[] = {6,12,18,0};
 		default = 12;
 	};
-	class weatherFog 
-	{
-		title = "Fog Density";
-		texts[] = {"No Fog","Light Fog","Medium Fog","Heavy Fog", "Random Fog"};
-		values[] = {0,1,2,3,4,5};
-		// When 'texts' are missing, values will be displayed directly instead
-		default = 1;
-	};
-	class weatherClouds  
-	{
-		title = "Weather";
-		texts[] = {"Clear","Partly Cloudy","Light Rain","Heavy Rain", "Random Weather"};
-		values[] = {0,1,2,3,4,5};
-		// When 'texts' are missing, values will be displayed directly instead
-		default = 1;
-	};
+	class initialWeatherParam {
+          title = "Weather";
+          values[] = {0,1,2,3,4};
+          texts[] = {"Clear","Overcast","Rain","Fog","Random"};
+          default = 4;
+       };
 	class pfatigue
 	{
-		title = "Player Fatigue"; 
+		title = "Player Fatigue";
 		texts[] = {"Disabled","Enabled"};
 		values[] = {0,1};
-		default = 0; 
+		default = 0;
 	};
 	class winScore
 	{
-		title = "Score To Win"; 
+		title = "Score To Win";
 		values[] = {50, 75, 100, 150, 200, 250, 500};
-		default = 150; 
+		default = 150;
 	};
 	class supportPointIncrement
 	{
-		title = "Amount of Points Between Support Grants"; 
+		title = "Amount of Points Between Support Grants";
 		values[] = {3, 5, 7, 10, 15, 20};
-		default = 10; 
+		default = 10;
+	};
+	class rankPointIncrement
+	{
+		title = "Amount of Points Between Ranks";
+		values[] = {3, 5, 7, 10, 15, 20};
+		default = 10;
 	};
 	class nvgs
 	{
-		title = "Night Vision Goggles"; 
+		title = "Night Vision Goggles";
 		texts[] = {"All Units Have","No Units Have"};
 		values[] = {0, 1};
-		default = 0; 
+		default = 1;
 	};
 };

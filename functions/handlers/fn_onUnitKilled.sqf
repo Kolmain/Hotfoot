@@ -1,3 +1,6 @@
+private ["_killed","_killer","_score","_scoreToAdd","_vis"];
+
+
 _killed = _this select 0;
 _killer = _this select 1;
 _score = _killer getVariable "KOL_score";
