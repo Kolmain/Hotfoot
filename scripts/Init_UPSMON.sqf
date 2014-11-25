@@ -16,7 +16,7 @@ UPSMON_maxwaiting = 10;
 UPSMON_SRCHTIME = 90;
 
 // if you are spotted by AI group, how close the other AI group have to be to You , to be informed about your present position. over this, will lose target
-UPSMON_sharedist = 1000; // org value 800 => increased for ArmA3 map sizes for less predictable missions..
+UPSMON_sharedist = 800; // org value 800 => increased for ArmA3 map sizes for less predictable missions..
 
 // knowsAbout 0.5 1.03 , 1.49 to add this enemy to "target list" (1-4) the higher number the less detect ability (original in 5.0.7 was 0.5)
 // it does not mean the AI will not shoot at you. This means: what must be knowsAbout you to UPSMON adds you to the list of targets (UPSMON list of target) 
@@ -27,9 +27,9 @@ UPSMON_knowsAboutEnemy = 1.5; // 5
 UPSMON_reinforcement = false; // ToDo Set to true if UPSMON reinf is going ot be used
 
 //Artillery support, better control if set in trigger 
-UPSMON_ARTILLERY_EAST_FIRE = true; //set to true for doing east to fire //ToDo verify if needed
-UPSMON_ARTILLERY_WEST_FIRE = true; //set to true for doing west to fire
-UPSMON_ARTILLERY_GUER_FIRE = true; //set to true for doing resistance to fire
+UPSMON_ARTILLERY_EAST_FIRE = false; //set to true for doing east to fire //ToDo verify if needed
+UPSMON_ARTILLERY_WEST_FIRE = false; //set to true for doing west to fire
+UPSMON_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
 
 // Can the group surrender?
 UPSMON_SURRENDER = false;
@@ -89,7 +89,7 @@ UPSMON_USE_SMOKE = 20; // org 13: decreased while AI is popping smoke a bit too 
 UPSMON_Allowfireplace = false;
 
 //Allow Units to Rearm
-UPSMON_AllowRearm = true;
+UPSMON_AllowRearm = false;
 
 //=============================================================================================================================
 //=============================== DO NOT TOUCH THESE VARIABLES ================================================================

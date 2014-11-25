@@ -37,17 +37,17 @@ switch (_grpSide) do {
 	_vehicle = _retArray select 0;
 	_crew = _retArray select 1;
 	//_grp = _retArary select 2;
-	
+
 	_heli = _retArray2 select 0;
 	_heliCrew = _retArray2 select 1;
 	_heliGrp = _retArray2 select 2;
 	_heliDriver = driver _heli;
-	
+	_heli setCaptive true;
 	{
 		_x assignAsCargo _vehicle;
 		_x moveInCargo _vehicle;
 	} forEach _rifles;
-	
+
 [_caller, format["%2, this is %1, requesting QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
 sleep 3;
 [(leader _grp), format["%1, this is %2, copy your last. Send landing grid, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
@@ -77,39 +77,45 @@ if (_dis > 1200) then {
 	sleep 3;
 
 	_heli setSlingLoad _vehicle;
-	
+
 	_heliDriver disableAI "FSM";
 	_heliDriver disableAI "TARGET";
 	_heliDriver disableAI "AUTOTARGET";
 	_heliGrp setBehaviour "AWARE";
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
-	
-	_heliDriver move _pos;
-	_heli flyInHeight 150;
+
+	_lz = [0,0,0];
+	{
+		_distanceToLz = _x distance _pos;
+		_shortestDistance = _lz distance _pos;
+		if (_distanceToLz < _shortestDistance) then { _x = _lz };
+	} count landingArray;
+	_heliDriver move _lz;
+	_heli flyInHeight 50;
 	_heli lock 3;
-	
+
 	if (isMultiplayer) then {
 	{
 		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
-	}  forEach units _heliGrp; 
+	}  forEach units _heliGrp;
 	{
 		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
-	}  forEach units _grp; 
+	}  forEach units _grp;
 	_heli addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
 	_vehicle addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];
 } else {
 	{
-		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
-	}  forEach units _heliGrp; 
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _heliGrp;
 	{
-		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
-	}  forEach units _grp; 
-	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
-	_vehicle addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}]; 
+		_x addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}];
+	}  forEach units _grp;
+	_heli addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}];
+	_vehicle addEventHandler ["Killed", {_this spawn KOL_fnc_onUnitKilled}];
 };
 
-	waitUntil {(_heli distance _pos < 200)};
+	waitUntil {(_heli distance _lz < 100)};
 	_heli flyInHeight 0;
 	_heli land "LAND";
 	waitUntil {(isTouchingGround _vehicle)};
@@ -120,7 +126,7 @@ if (_dis > 1200) then {
 	[(leader _grp) , "city", "ASSUALT"] execvm "scripts\UPSMON.sqf";
 	_heli land "NONE";
 	_heliDriver move _pos2;
-	_heli flyInHeight 90;
+	_heli flyInHeight 50;
 	waitUntil {(_heli distance _pos2 < 300)};
 	{
 		deleteVehicle _x;

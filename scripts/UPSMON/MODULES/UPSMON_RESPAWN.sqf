@@ -92,14 +92,14 @@ If (!_removeunit) then
 		// make the clones civilians
 		// use random Civilian models for single unit groups
 			
-		_group=createGroup _side;	
+		_group = createGroup _side;	
 	
 		_lead = ObjNull;
 		// copy team members (skip the leader)
 		_i=0;
 		{	
 			_unittype = _x select 0;
-			if ((_unittype == Civilian) && (count _members==1)) then {_rnd=1+round(random 20); if (_rnd>1) then {_unittype=format["Civilian%1",_rnd]}};
+			if (_side == Civilian) then {_rnd=1+round(random 20); if (_rnd>1) then {_unittype=format["Civilian%1",_rnd]}};
 			_roletype = _x select 2;
 			_targetpos = _orgpos findEmptyPosition [5,50];
 			if (count _targetpos == 0) then {_targetpos = _orgpos};

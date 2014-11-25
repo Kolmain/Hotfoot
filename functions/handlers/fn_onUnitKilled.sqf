@@ -11,7 +11,7 @@ if (KOL_debug) then {
 
 if (isPlayer _killer) then {
 	if (_killer == player) then {
-		if ((side _killed) != (side _killer)) then { 
+		if ((side _killed) != (side _killer)) then {
 			_vis = lineIntersects [eyePos player, eyePos _killed, player, _killed];
 			if(!_vis) then {
 				if (_killed isKindOf "Man") then {
@@ -56,10 +56,10 @@ if (isPlayer _killer) then {
 			_scoreToAdd = 0;
 			_killer setVariable ["KOL_score", _score, true];
 			[player, -7] call BIS_fnc_addScore;
-		}
-	} else { 
-		_scoreToAdd = 1;
-	};
+		};
+	} ;
+} else {
+	_scoreToAdd = 1;
 };
 
 
@@ -78,3 +78,6 @@ switch (side _killer) do {
 	};
 };
 
+if (KOL_debug) then {
+	systemChat format["WEST: %1 EAST: %2 GUER: %3", points_west, points_east, points_guerrila];
+};

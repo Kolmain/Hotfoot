@@ -1,6 +1,20 @@
 enableSaving [false,false];
 enableTeamswitch false;
 
+hotfoot_epilogue = false;
+hotfoot_intro = true;
+KOL_debug = true;
+insertionChopper_west = init_obj;
+insertionChopper_east = init_obj;
+insertionChopper_guerrila = init_obj;
+extractionChopper = init_obj;
+landingArray = [(getPos landingArrayStart)];
+winningSide = west;
+points_west = 0;
+points_east = 0;
+points_guerrila = 0;
+scoreToWin = "winScore" call BIS_fnc_getParamValue;
+
 weatherClouds = "weatherClouds" call BIS_fnc_getParamValue; 
  switch (weatherClouds) do { 
     case 1: {0 setOvercast 0};                     // Clear 

@@ -29,6 +29,22 @@
                         gridmarkers pushBack _nam;
                     };
                 };
+				if (((side player) == (side _x)) && ((leader group _x) == _x) && (vehicle _x == _x)) then {
+					_name = format["marker_%1", name _x];
+					_color = [side _x, true] call BIS_fnc_sideColor;
+					_name = format["marker_%1", name _x];
+					createMarkerLocal [_name, getPos _x];
+					_name setMarkerShapeLocal "ICON";
+					_name setMarkerColorLocal _color;
+					if (isPlayer _x) then {
+					  _name setMarkerTextLocal format["%1", name _x];
+					  _name setMarkerTypeLocal "waypoint"; 
+					} else {
+					  _name setMarkerTextLocal format["%1", groupID group _x];
+					  _name setMarkerTypeLocal "b_inf"; 
+					};
+					gridmarkers pushBack _name;
+				};
                 true
             } count allUnits;
             sleep 10;
