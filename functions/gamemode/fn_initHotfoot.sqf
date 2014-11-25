@@ -1,5 +1,3 @@
-
-
 publicVariable "hotfoot_epilogue";
 publicVariable "points_west";
 publicVariable "points_east";
