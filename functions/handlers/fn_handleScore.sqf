@@ -1,2 +1,1 @@
-
-return false;
+false

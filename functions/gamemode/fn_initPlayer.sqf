@@ -77,6 +77,7 @@ _amb = [] spawn KOL_fnc_createAmbientEnviroment;
 _gridMark = [] spawn KOL_fnc_gridMarkers;
 _ao = [aoTrig] spawn BIS_fnc_drawAO;
 _supports = [] spawn KOL_fnc_initPlayerSupports;
+_rank = [player] spawn KOL_fnc_rankHandler;
 _loadout = [(side player)] spawn KOL_fnc_initPlayerLoadout;
 
 

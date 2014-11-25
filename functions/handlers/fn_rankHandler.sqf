@@ -11,7 +11,6 @@ while {true} do {
 				_newRank ="CORPROAL";
 				//notification
 			};
-
 		};
 		case "CORPROAL": {
 			if (_score > (_increment * 2)) then {

@@ -35,13 +35,6 @@ class CfgFunctions
 		};
 		class respawn
 		{
-			class createRespawnHeli
-			{
-				preInit = 0; // 1 to call the function upon mission start, before objects are initialized. Passed arguments are ["preInit"]
-				postInit = 0; // 1 to call the function upon mission start, after objects are initialized. Passed arguments are ["postInit"]
-				recompile = 1; // 1 to recompile the function upon mission start
-				ext = ".sqf"; // Set file type, can be ".sqf" or ".fsm" (meaning scripted FSM). Default is ".sqf".
-			};
 			class createRespawnHeliPlayer
 			{
 				preInit = 0; // 1 to call the function upon mission start, before objects are initialized. Passed arguments are ["preInit"]
