@@ -110,6 +110,9 @@ if (isMultiplayer) then {
 	} forEach ropes _heli;
 	_vehicle setCaptive false;
 	[(leader _grp), format["Be advised, UGV %1 is in the AO and engaging hostiles, out.", groupID _grp]] call KOL_fnc_globalSideChat;
+	{
+		_x setSkill ("AISkill" call BIS_fnc_getParamValue);
+	} forEach units _grp;
 	[(leader _grp) , "city", "ASSUALT"] execvm "scripts\UPSMON.sqf";
 	_heli land "NONE";
 	_heliDriver move _pos2;

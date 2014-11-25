@@ -37,6 +37,14 @@ if (isMultiplayer) then {
 {
 	_x setSkill ("AISkill" call BIS_fnc_getParamValue);
 	_x moveInCargo _spawnVehicle;
+	if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
+		_x unassignItem "NVGoggles";
+		_x removeItem "NVGoggles";
+		_x unassignItem "NVGoggles_OPFOR";
+		_x removeItem "NVGoggles_OPFOR";
+		_x unassignItem "NVGoggles_INDEP";
+		_x removeItem "NVGoggles_INDEP";
+	};
 } forEach units _spawnedGrp;
 _spawnedGrp leaveVehicle _spawnVehicle;
 [(leader _spawnedGrp),format["All units be advised, %1 are entering the AO, out.", groupID _spawnedGrp]] call KOL_fnc_globalSideChat;

@@ -56,14 +56,17 @@ systemChat "EPILOGUE STARTED!";
 
 	_driver = driver _extractionVehicle;
 	_extractionGroup = group _extractionVehicle;
+	{
+			_x disableAI "MOVE";
+			_x allowFleeing 0;
+			_x enableAttack false;
+		} forEach units _extractionGroup;
 	sleep 20;
 
-	_driver move _extractionPoint;
-
-	_empty = [_heli] spawn {
-		_heli = _this select 0;
+	_empty = [_extractionVehicle] spawn {
+		_extractionVehicle = _this select 0;
 		waitUntil {!(canMove _extractionVehicle)};
-		//[_heli, format["%1 is !", groupID (group _heli)]] call KOL_fnc_globalSideChat;
+		//[_extractionVehicle, format["%1 is !", groupID (group _extractionVehicle)]] call KOL_fnc_globalSideChat;
 	};
 
 	[_heli, format["All units be advised, %1 is awaiting extraction at the Obeservation Post, out.", groupID _extractionGroup]] call KOL_fnc_globalSideChat;
@@ -89,7 +92,7 @@ systemChat "EPILOGUE STARTED!";
 		_driver disableAI "FSM";
 		_driver disableAI "TARGET";
 		_driver disableAI "AUTOTARGET";
-		_driver move _spawnPos;
+		_driver move _extractionPoint;
 		_extractionGroup setBehaviour "AWARE";
 		_extractionGroup setCombatMode "RED";
 		_extractionGroup setSpeedMode "FULL";

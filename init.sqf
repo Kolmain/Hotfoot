@@ -10,6 +10,14 @@ points_west = 0;
 points_east = 0;
 points_guerrila = 0;
 scoreToWin = "winScore" call BIS_fnc_getParamValue;
+hc_param = "hc_param" call BIS_fnc_getParamValue;
+HC = false;
+if (hc_param > 0) then {
+	HC = true;
+} else {
+	HC = false;
+};
+publicVariable "HC";
 TimeHour = "TimeHour" call BIS_fnc_getParamValue;
 setDate [2035, 7, 4, TimeHour, 0];
 

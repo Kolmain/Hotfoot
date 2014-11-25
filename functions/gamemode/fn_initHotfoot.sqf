@@ -10,11 +10,11 @@ publicVariable "KOL_debug";
 
 
 
-if (!isDedicated) then {
+if (!isDedicated && (player != headlessClient)) then {
 	[] spawn KOL_fnc_initPlayer;
 };
 
-if (isServer) then {
+if ((isServer && !HC) || (HC && (player == headlessClient)) then {
 	[] spawn KOL_fnc_gameEndLoop;
 		_empty = [] spawn {
 			for "_i" from 1 to ("b_teams" call BIS_fnc_getParamValue) do
@@ -37,4 +37,15 @@ if (isServer) then {
 				sleep 10;
 			};
 		};
+};
+
+if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
+	{
+		_x unassignItem "NVGoggles";
+		_x removeItem "NVGoggles";
+		_x unassignItem "NVGoggles_OPFOR";
+		_x removeItem "NVGoggles_OPFOR";
+		_x unassignItem "NVGoggles_INDEP";
+		_x removeItem "NVGoggles_INDEP";
+	} forEach allUnits;
 };

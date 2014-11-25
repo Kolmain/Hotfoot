@@ -46,6 +46,15 @@ switch (_grpSide) do {
 	{
 		_x assignAsCargo _vehicle;
 		_x moveInCargo _vehicle;
+		_x setSkill ("AISkill" call BIS_fnc_getParamValue);
+		if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
+		_x unassignItem "NVGoggles";
+		_x removeItem "NVGoggles";
+		_x unassignItem "NVGoggles_OPFOR";
+		_x removeItem "NVGoggles_OPFOR";
+		_x unassignItem "NVGoggles_INDEP";
+		_x removeItem "NVGoggles_INDEP";
+	};
 	} forEach _rifles;
 
 [_caller, format["%2, this is %1, requesting QRF, over.", groupID (group _caller), groupID _grp]] call KOL_fnc_globalSideChat;
