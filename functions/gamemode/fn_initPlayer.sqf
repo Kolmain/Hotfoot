@@ -16,7 +16,7 @@ setViewDistance ("viewDistanceParam" call BIS_fnc_getParamValue);
 				drawIcon3D ["\A3\ui_f\data\map\markers\military\pickup_CA.paa",_sideColor,_pos,1,1,0, "Armory Officer",0,0.04];
 			};
 		};
-	} foreach [va_west, va_east, va_guerrilla];
+	} foreach [va_west, va_east, va_guerrila];
 }] call BIS_fnc_addStackedEventHandler;
 
 ["respawnVehicle3DText", "onEachFrame", {
@@ -33,7 +33,24 @@ setViewDistance ("viewDistanceParam" call BIS_fnc_getParamValue);
 				drawIcon3D ["\A3\ui_f\data\map\markers\nato\b_mech_inf.paa", _sideColor, _pos, 1, 1, 0, "Arrival Truck", 0, 0.04];
 			};
 		};
-	} foreach [respawnVehicle_west, respawnVehicle_east, respawnVehicle_guerrilla];
+	} foreach [respawnVehicle_west, respawnVehicle_east, respawnVehicle_guerrila];
+}] call BIS_fnc_addStackedEventHandler;
+
+["respawnVehicle3DText", "onEachFrame", {
+	private["_vis","_pos"];
+	{
+		_sideColor = [(side player)] call BIS_fnc_sideColor;
+		if(player distance _x < 100) then
+		{
+			_vis = lineIntersects [eyePos player, eyePos _x, player, _x];
+			if(!_vis) then
+			{
+				_pos = visiblePosition _x;
+				_pos set[2,(getPosATL _x select 2) + 2.2];
+				drawIcon3D ["\A3\ui_f\data\map\markers\nato\b_mech_inf.paa", _sideColor, _pos, 1, 1, 0, "Arrival Truck", 0, 0.04];
+			};
+		};
+	} foreach [opVehicle_west, opVehicle_east, opVehicle_guerrila];
 }] call BIS_fnc_addStackedEventHandler;
 
 
@@ -64,7 +81,7 @@ _handleHealID = player addEventHandler ["HandleHeal",{
 			_score = player getVariable "KOL_score";
 			_score = _score + 1;
 			player setVariable ["KOL_score", _score, true];
-			["PointsAdded",["Applied FAK to Friendly Unit", 1]] call BIS_fnc_showNotification;
+			["PointsAdded",["Applied FAK to Friendly Unit.", 1]] call BIS_fnc_showNotification;
 			[player, 1] call BIS_fnc_addScore;
 		};
 	}], "BIS_fnc_spawn", true] call BIS_fnc_MP;
