@@ -1,13 +1,13 @@
 private ["_waitTime","_callSupport","_westUnits","_eastUnits","_indUnits","_sides","_callingSide","_caller","_support"];
 
-_waitTime = "aiSupportTime" call BIS_fnc_getParamValue
+_waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
 
 //_callSupport = [true, false] call BIS_fnc_selectRandom; //returns one of the variables
 _callSupport = true;
 _westUnits = [];
 _eastUnits = [];
 _indUnits = [];
-_sides = [_westUnits, _eastUnits, _indUnits];
+_sides = [];
 _callingSide = sideLogic;
 if (_callSupport) then {
 	{
@@ -54,7 +54,3 @@ if (_callSupport) then {
 sleep _waitTime;
 
 if (!hotfoot_epilogue) then {[] spawn KOL_fnc_aiSupportHandler};
-
-
-
-call bis_fnc_findSafePos
