@@ -71,15 +71,7 @@ if (isMultiplayer) then {
 	};
 	} forEach units _spawnedGrp;
 
-	_closest = getPos init_obj;
-	_closestdist = 100000;
-	{
-	  if (_x distance _pos < _closestdist) then {
-		_closest = _x;
-		_closestdist = _x distance _pos;
-	  };
-	} forEach landingArray;
-	_lz = _closest;
+	_lz = [_pos] call KOL_fnc_findNearestLZ;
 
 	_heliDriver move _lz;
 	_heli flyInHeight 50;

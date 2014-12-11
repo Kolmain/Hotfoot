@@ -20,7 +20,7 @@ if (hc_param > 0) then {
 publicVariable "HC";
 TimeHour = "TimeHour" call BIS_fnc_getParamValue;
 setDate [2035, 7, 4, TimeHour, 0];
-
+_ret = [] spawn KOL_fnc_initHotfoot;
 call compile preprocessFileLineNumbers "scripts\Init_UPSMON.sqf";
 call compile preprocessFileLineNumbers "scripts\randomWeather2.sqf";
-call KOL_fnc_initHotfoot;
+

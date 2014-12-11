@@ -7,9 +7,13 @@ _is3D = _this select 3;
 _ID = _this select 4;
 _grpSide = side _caller;
 if (_grpSide == independent) then {_grpSide = RESISTANCE;};
-_grp = group caller;
-_rifles = units group caller;
-_pos2 = [0,0,0];
+_grp = group _caller;
+_ugvArray = [_caller];
+_ugv = _caller;
+_pos2 = [];
+_retArray = [];
+_retArray2 = [];
+_spawnPos = [];
 
 
 
@@ -45,6 +49,7 @@ switch (_grpSide) do {
 		_pos2 = getMarkerPos "arespawn_guerrila";
 	};
 };
+	waitUntil {!isNil "_retArray"};
 	_vehicle = _retArray select 0;
 	_crew = _retArray select 1;
 	//_grp = _retArary select 2;
@@ -104,13 +109,7 @@ if (_dis > 1200) then {
 	_heliGrp setBehaviour "AWARE";
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
-
-	_lz = [0,0,0];
-	{
-		_distanceToLz = _x distance _pos;
-		_shortestDistance = _lz distance _pos;
-		if (_distanceToLz < _shortestDistance) then { _x = _lz };
-	} count landingArray;
+	_lz = [_pos] call KOL_fnc_findNearestLZ;
 	_heliDriver move _lz;
 	_heli flyInHeight 50;
 	_heli lock 3;

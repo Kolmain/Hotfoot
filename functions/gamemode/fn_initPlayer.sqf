@@ -1,5 +1,5 @@
 private ["_sideColor","_vis","_pos","_y","_hitID","_handleHealID","_score","_mus","_amb","_mark","_gridMark","_ao","_supports","_loadout"];
-
+player setVariable ["KOL_score", 0, true];
 _sideColor = [(side player)] call BIS_fnc_sideColor;
 setViewDistance ("viewDistanceParam" call BIS_fnc_getParamValue);
 ["armory3DText", "onEachFrame", {
@@ -96,15 +96,17 @@ _ao = [aoTrig] spawn BIS_fnc_drawAO;
 _supports = [] spawn KOL_fnc_initPlayerSupports;
 _rank = [player] spawn KOL_fnc_rankHandler;
 _loadout = [(side player)] spawn KOL_fnc_initPlayerLoadout;
-
+/*
 player createDiaryRecord ["Intel", ["Situation", "The captial of Altis, Pyrgos, is being assaulted by OPFOR infantry in order to seize a foothold for a counter offensive. Friendly forces are tasked with capturing and securing <marker name="city">Pyrgos</marker> before the OPFOR have the chance to."]];
 player createDiaryRecord ["Intel", ["Enemy Forces", "Enemy forces will be moving infantry squads in from their Observation Posts on the outskirts of the city. These OP's are expected to be well defended, and you should avoid them at all costs. Expect heavy infantry and light vehicle support from OPFOR units."]];
 player createDiaryRecord ["Intel", ["Friendly Forces", "Friendly forces will be accompanying your team in the assault. Additional support assets are available and will be standing by. In addition to infantry fireteams, HQ will be providing QRF, UGV, and fire support from the FOB."]];
+
 _task = player createsimpletask ["obj0"];
 _task setsimpletaskdescription ["ASSAULT PYRGOS", "Assault and secure the city of Pyrgos. Minimize civilian impact and counter-attacka any OPFOR infantry within the city.", "ASSAULT"];
 _task setsimpletaskdestination hardpoint;
 _task settaskstate "Current";
 [nil, nil, _task, "created"] execvm "\ca\modules\mp\data\scriptcommands\taskhint.sqf";
+*/
 
 	[
 		hardpoint,

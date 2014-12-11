@@ -1,18 +1,9 @@
-publicVariable "hotfoot_epilogue";
-publicVariable "points_west";
-publicVariable "points_east";
-publicVariable "points_guerrila";
-publicVariable "scoreToWin";
-publicVariable "hotfoot_intro";
-publicVariable "KOL_debug";
-
-
-
 if (!isDedicated && (player != headlessClient)) then {
 	[] spawn KOL_fnc_initPlayer;
 };
 
-if ((isServer && !HC) || (HC && (player == headlessClient)) then {
+if ((isServer && !HC) or (HC && (player == headlessClient))) then {
+//if (isServer) then {
 	[] spawn KOL_fnc_gameEndLoop;
 		_empty = [] spawn {
 			for "_i" from 1 to ("b_teams" call BIS_fnc_getParamValue) do

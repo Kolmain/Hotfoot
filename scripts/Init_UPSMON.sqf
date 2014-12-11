@@ -1,8 +1,8 @@
-// only run on server (including SP, MP, Dedicated) and Headless Client 
+// only run on server (including SP, MP, Dedicated) and Headless Client
 if (!isServer && hasInterface ) exitWith {};
 
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //        These Variables should be checked and set as required, to make the mission runs properly.
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -19,14 +19,14 @@ UPSMON_SRCHTIME = 90;
 UPSMON_sharedist = 800; // org value 800 => increased for ArmA3 map sizes for less predictable missions..
 
 // knowsAbout 0.5 1.03 , 1.49 to add this enemy to "target list" (1-4) the higher number the less detect ability (original in 5.0.7 was 0.5)
-// it does not mean the AI will not shoot at you. This means: what must be knowsAbout you to UPSMON adds you to the list of targets (UPSMON list of target) 
+// it does not mean the AI will not shoot at you. This means: what must be knowsAbout you to UPSMON adds you to the list of targets (UPSMON list of target)
 UPSMON_knowsAboutEnemy = 1.5; // 5
 
 //////////////////////// MODULES ////////////////////////////////////////////
 //Enable it to send reinforcements, better done it in a trigger inside your mission.
 UPSMON_reinforcement = false; // ToDo Set to true if UPSMON reinf is going ot be used
 
-//Artillery support, better control if set in trigger 
+//Artillery support, better control if set in trigger
 UPSMON_ARTILLERY_EAST_FIRE = false; //set to true for doing east to fire //ToDo verify if needed
 UPSMON_ARTILLERY_WEST_FIRE = false; //set to true for doing west to fire
 UPSMON_ARTILLERY_GUER_FIRE = false; //set to true for doing resistance to fire
@@ -59,12 +59,12 @@ UPSMON_flyInHeight = 40; //80;
 //Max distance to target for doing para-drop, will be randomised between 0 and 100% of this value.
 UPSMON_paradropdist = 400;
 
-//Height that heli will fly if his mission is paradroping. 
+//Height that heli will fly if his mission is paradroping.
 UPSMON_paraflyinheight = 110;
 
-// Distance from destination for searching vehicles. (Search area is about 200m), 
+// Distance from destination for searching vehicles. (Search area is about 200m),
 // If your destination point is further than UPSMON_searchVehicledist, AI will try to find a vehicle to go there.
-UPSMON_searchVehicledist = 900; // 700, 900 
+UPSMON_searchVehicledist = 900; // 700, 900
 
 // How far opfor disembark from non armoured vehicle
 UPSMON_closeenoughV = 800;
@@ -82,7 +82,7 @@ UPSMON_useMines = true;
 UPSMON_ambushdist = 100;
 
 //% of chance to use smoke by team members when someone wounded or killed in the group in %(default 13 & 35).
-// set both to 0 -> to switch off this function 
+// set both to 0 -> to switch off this function
 UPSMON_USE_SMOKE = 20; // org 13: decreased while AI is popping smoke a bit too often
 
 //Allow Relax units during nightime to create fireplace
@@ -126,7 +126,7 @@ UPSMON_SUPPORT_WEST_UNITS = [];
 UPSMON_SUPPORT_EAST_UNITS = [];
 UPSMON_SUPPORT_GUER_UNITS = [];
 //tracked units array
-UPSMON_Trackednpcs = []; 
+UPSMON_Trackednpcs = [];
 //Targetpos of groups
 UPSMON_targetsPos = [];
 //Units array by sides
@@ -210,4 +210,4 @@ _m setmarkerAlpha 0;
 
 
 //Initialization done
-UPSMON_INIT=1;	
+UPSMON_INIT=1;

@@ -10,8 +10,10 @@ if (_grpSide == independent) then {_grpSide = RESISTANCE;};
 _grp = group _caller;
 _ugvArray = [_caller];
 _ugv = _caller;
-_pos2 = [0,0,0];
-
+_pos2 = [];
+_retArray = [];
+_retArray2 = [];
+_spawnPos = [];
 
 switch (_grpSide) do {
     case west: {
@@ -87,12 +89,7 @@ if (_dis > 1200) then {
 	_heliGrp setCombatMode "RED";
 	_heliGrp setSpeedMode "NORMAL";
 
-	_lz = [0,0,0];
-	{
-		_distanceToLz = _x distance _pos;
-		_shortestDistance = _lz distance _pos;
-		if (_distanceToLz < _shortestDistance) then { _x = _lz };
-	} count landingArray;
+	_lz = [_pos] call KOL_fnc_findNearestLZ;
 	_heliDriver move _lz;
 	_heli flyInHeight 50;
 	_heli lock 3;
