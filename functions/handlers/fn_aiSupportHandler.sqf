@@ -41,7 +41,7 @@ switch (_support) do {
 	};
 };
 if (KOL_debug) then {
-	systemChat format["%1 CALLING A %2", name _caller, _support];
+		systemChat format["%3: %1 CALLING A %2", name _caller, _support, side _caller];
 };
 /*
 
