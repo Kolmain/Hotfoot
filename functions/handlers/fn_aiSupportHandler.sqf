@@ -26,22 +26,23 @@ switch (_callingSide) do {
 		_callers pushBack _x;
 	};
 } forEach nearestObjects [hardpoint, ["Man"], 1000];
-		_caller = _callers call BIS_fnc_selectRandom;
-		_support = ["ugvRequest", "qrfRequest", "createNonrespawnableAiGroup"] call BIS_fnc_selectRandom;
-		switch (_support) do {
-			case "ugvRequest": {
-				[_caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_ugvRequest;
-			};
-			case "qrfRequest": {
-				[_caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_qrfRequest;
-			};
-			case "createNonrespawnableAiGroup": {
-				[side _caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_createNonrespawnableAiGroup;
-			};
-		};
-		if (KOL_debug) then {
-			systemChat format["%1 CALLING A %2", name _caller, _support];
-		};
+if (count _callers <=1) exitwith {["No units in array, _callers: %1", _callers] call BIS_fnc_error};
+_caller = _callers call BIS_fnc_selectRandom;
+_support = ["ugvRequest", "qrfRequest", "createNonrespawnableAiGroup"] call BIS_fnc_selectRandom;
+switch (_support) do {
+	case "ugvRequest": {
+		[_caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_ugvRequest;
+	};
+	case "qrfRequest": {
+		[_caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_qrfRequest;
+	};
+	case "createNonrespawnableAiGroup": {
+		[side _caller, (getPos _caller), "null", false, 0] spawn KOL_fnc_createNonrespawnableAiGroup;
+	};
+};
+if (KOL_debug) then {
+	systemChat format["%1 CALLING A %2", name _caller, _support];
+};
 /*
 
 sleep _waitTime;
