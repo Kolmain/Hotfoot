@@ -1,11 +1,13 @@
-private ["_waitTime","_callSupport","_westUnits","_eastUnits","_indUnits","_sides","_callingSide","_caller","_support"];
-
+private ["_callingSide","_waitTime","_sleep","_callSupport","_callers","_sides","_caller","_support"];
+_callingSide = _this select 0;
+if (_callingSide == independent) then {_grpSide = resistance;};
 _waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
+_sleep = _waitTime + (random _waitTime);
 //_callSupport = [true, false] call BIS_fnc_selectRandom; //returns one of the variables
 _callSupport = true;
 _callers = [];
-_sides = [west, east, resistance];
-_callingSide = _sides call BIS_fnc_selectRandom;
+//_sides = [west, east, resistance];
+//_callingSide = _sides call BIS_fnc_selectRandom;
 switch (_callingSide) do {
     case west: {
     	//_caller = opVehicle_west;
@@ -43,9 +45,8 @@ switch (_support) do {
 if (KOL_debug) then {
 		systemChat format["%3: %1 CALLING A %2", name _caller, _support, side _caller];
 };
-/*
 
-sleep _waitTime;
+
+sleep _sleep;
 
 if (!hotfoot_epilogue) then {[] spawn KOL_fnc_aiSupportHandler};
-*/

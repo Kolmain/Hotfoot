@@ -26,7 +26,12 @@ if ((isServer && !HC) or (HC && (player == headlessClient))) then {
 				sleep 10;
 			};
 		};
+		{
+			_empty = [_x] spawn KOL_fnc_aiSupportHandler;
+		} count [west, east, resistance];
 };
+
+
 
 if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
 	{

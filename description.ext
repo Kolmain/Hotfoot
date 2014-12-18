@@ -27,6 +27,7 @@ aikills = 0;
 #include "includes\CfgNotifications.hpp"
 #include "includes\CfgFunctions.hpp"
 #include "includes\CfgParams.hpp"
+#include "includes\CfgSounds.hpp"
 
 class CfgRespawnTemplates
 {

@@ -50,6 +50,7 @@ switch (_grpSide) do {
 	};
 };
 	waitUntil {!isNil "_retArray"};
+	waitUntil {!isNil "_retArray2"};
 	_vehicle = _retArray select 0;
 	_crew = _retArray select 1;
 	//_grp = _retArary select 2;
