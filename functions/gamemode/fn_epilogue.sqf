@@ -1,15 +1,23 @@
-//end of match notification
-//hotfoot_epilogue = true;
-_sideArray = [west, east, independent];
-_sideArray = _sideArray - [winningSide];
+private ["_sideArray","_side","_hardpoint","_extractionVehicle","_extractionPoint","_menInAO","_exfilWP","_driver","_extractionGroup","_dis"];
+sideArray = [];
+if (west_active) then {
+	sideArray pushBack west;
+};
+if (east_active) then {
+	sideArray pushBack east;
+};
+if (indep_active) then {
+	sideArray pushBack independent;
+};
+
+sideArray = sideArray - [winningSide];
+publicVariable "_sideArray";
 extractionsComplete = 0;
 if (KOL_debug) then {
-systemChat "EPILOGUE STARTED!";
+	systemChat "EPILOGUE STARTED!";
 };
 [[[], {
-		_sideArray = [west, east, independent];
-		_sideArray = _sideArray - [winningSide];
-		if ((side player) in _sideArray) then {
+		if (isPlayer && (side player) in sideArray) then {
 			["Lost",[]] call BIS_fnc_showNotification;
 		} else {
 			["Won",[]] call BIS_fnc_showNotification;
@@ -21,7 +29,7 @@ systemChat "EPILOGUE STARTED!";
 	_side = _x;
 	_hardpoint = hardpoint;
 	_extractionVehicle = init_obj;
-	_extractionPoint = [0,0,0];
+	_extractionPoint = [];
 
 	switch (_side) do {
 	  case west: {
@@ -38,7 +46,8 @@ systemChat "EPILOGUE STARTED!";
 		};
 	};
 
-	_menInAO = nearestObjects [hardpoint, ["Man"], 1000];
+	_menInAO = nearestObjects [hardpoint, ["Man"], 1200];
+	if (count _menInAO < 1) exitwith {["No objects in array, _menInAO: %1", _menInAO] call BIS_fnc_error};
 	{
 		if ((side _x) == _side) then {
 			while {(count (waypoints (group _x))) > 0} do {
@@ -63,19 +72,13 @@ systemChat "EPILOGUE STARTED!";
 		} forEach units _extractionGroup;
 	sleep 20;
 
-	_empty = [_extractionVehicle] spawn {
-		_extractionVehicle = _this select 0;
-		waitUntil {!(canMove _extractionVehicle)};
-		//[_extractionVehicle, format["%1 is !", groupID (group _extractionVehicle)]] call KOL_fnc_globalSideChat;
-	};
-
-	[_heli, format["All units be advised, %1 is awaiting extraction at the Obeservation Post, out.", groupID _extractionGroup]] call KOL_fnc_globalSideChat;
+	[_extractionVehicle, format["All units be advised, %1 is awaiting extraction at the Obeservation Post, out.", groupID _extractionGroup]] call KOL_fnc_globalSideChat;
 	sleep 2;
 
 
 		{
 			if ((side _x) == _side) then {
-				_x assignAsCargo _heli;
+				_x assignAsCargo _extractionVehicle;
 			};
 		} forEach _menInAO;
 		sleep 20;
@@ -98,13 +101,11 @@ systemChat "EPILOGUE STARTED!";
 		_extractionGroup setSpeedMode "FULL";
 		waitUntil {(_extractionVehicle distance hardpoint > 1000) || !alive _extractionVehicle || !canMove _extractionVehicle};
 		extractionsComplete = extractionsComplete + 1;
-} forEach _sideArray;
+} forEach sideArray;
 
 waitUntil {extractionsComplete == 2};
 	[[[], {
-		_sideArray = [west, east, independent];
-		_sideArray = _sideArray - [winningSide];
-		if ((side player) in _sideArray) then {
+		if (isPlayer && (side player) in sideArray) then {
 			_dis = player distance hardpoint;
 			if ((alive player) && (_dis > 1000)) then {
 				"failed_escaped" call BIS_fnc_endMission;

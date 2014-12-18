@@ -1,16 +1,37 @@
 class Params
 {
+	class west_active
+	{
+		title = "BLUFOR";
+		values[] = {0,1};
+		texts[] = {"Disabled","Enabled"};
+		default = 1;
+	};
 	class b_teams
 	{
 		title = "BLUFOR Respawning Fireteams";
 		values[] = {0,2,4,6};
 		default = 2;
 	};
+	class east_active
+	{
+		title = "OPFOR";
+		values[] = {0,1};
+		texts[] = {"Disabled","Enabled"};
+		default = 1;
+	};
 	class o_teams
 	{
 		title = "OPFOR Respawning Fireteams";
 		values[] = {0,2,4,6};
 		default = 4;
+	};
+	class indep_active
+	{
+		title = "INDFOR";
+		values[] = {0,1};
+		texts[] = {"Disabled","Enabled"};
+		default = 1;
 	};
 	class i_teams
 	{
@@ -44,6 +65,13 @@ class Params
 		texts[] = {"Disabled","Enabled"};
 		values[] = {0,1};
 		default = 0;
+	};
+	class weaponFX
+	{
+		title = "WeaponFX";
+		texts[] = {"Disabled","Enabled"};
+		values[] = {0,1};
+		default = 1;
 	};
 	class winScore
 	{

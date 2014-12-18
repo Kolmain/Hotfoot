@@ -24,47 +24,42 @@ if (isPlayer _killer) then {
 						_score = _score + 5;
 						_scoreToAdd = 5;
 						_killer setVariable ["KOL_score", _score, true];
-						["PointsAdded",["Player Kill",5]] call BIS_fnc_showNotification;
-						[player, 5] call BIS_fnc_addScore;
-
+						["PointsAdded",["Player Kill", 5]] call BIS_fnc_showNotification;
 					} else {
 						//npc kill
 						_score = _score + 1;
 						_scoreToAdd = 1;
 						_killer setVariable ["KOL_score", _score, true];
-						["PointsAdded",["NPC Kill",1]] call BIS_fnc_showNotification;
-						[player, 1] call BIS_fnc_addScore;
+						["PointsAdded",["NPC Kill", 1]] call BIS_fnc_showNotification;
 					};
 				};
 				if (_killed isKindOf "Car") then {
 					//support car
-					_scoreToAdd = 5;
-					_score = _score + 5;
+					_scoreToAdd = 7;
+					_score = _score + 7;
 					_killer setVariable ["KOL_score", _score, true];
-					["PointsAdded",["Support Unit Kill",5]] call BIS_fnc_showNotification;
-					[player, 5] call BIS_fnc_addScore;
+					["PointsAdded",["Support Unit Kill", 7]] call BIS_fnc_showNotification;
 				};
 				if (_killed isKindOf "Helicopter") then {
 					//transport kill
 					_scoreToAdd = 7;
 					_score = _score + 7;
 					_killer setVariable ["KOL_score", _score, true];
-					["PointsAdded",["Transport Kill",7]] call BIS_fnc_showNotification;
-					[player, 7] call BIS_fnc_addScore;
+					["PointsAdded",["Transport Kill", 7]] call BIS_fnc_showNotification;
 				};
 			};
 		} else {
-			["PointsRemoved",["Friendly Fire Kill", -7]] call BIS_fnc_showNotification;
+			["PointsRemoved",["Friendly Fire Kill", 7]] call BIS_fnc_showNotification;
 			_score = _score - 7;
 			_scoreToAdd = 0;
 			_killer setVariable ["KOL_score", _score, true];
-			[player, -7] call BIS_fnc_addScore;
 		};
 	} ;
 } else {
 	_scoreToAdd = 1;
 };
 
+[_killer, _scoreToAdd] call BIS_fnc_addScore;
 
 switch (side _killer) do {
     case west: {
