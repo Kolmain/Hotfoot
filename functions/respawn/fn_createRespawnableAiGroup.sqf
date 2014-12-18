@@ -37,6 +37,9 @@ if (isMultiplayer) then {
 {
 	_x setSkill ("AISkill" call BIS_fnc_getParamValue);
 	_x moveInCargo _spawnVehicle;
+	if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+			_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+	};
 	if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
 		_x unassignItem "NVGoggles";
 		_x removeItem "NVGoggles";

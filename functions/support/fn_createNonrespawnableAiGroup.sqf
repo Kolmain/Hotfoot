@@ -62,13 +62,16 @@ if (isMultiplayer) then {
 		_x assignAsCargo _heli;
 		_x setSkill ("AISkill" call BIS_fnc_getParamValue);
 		if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
-		_x unassignItem "NVGoggles";
-		_x removeItem "NVGoggles";
-		_x unassignItem "NVGoggles_OPFOR";
-		_x removeItem "NVGoggles_OPFOR";
-		_x unassignItem "NVGoggles_INDEP";
-		_x removeItem "NVGoggles_INDEP";
-	};
+			_x unassignItem "NVGoggles";
+			_x removeItem "NVGoggles";
+			_x unassignItem "NVGoggles_OPFOR";
+			_x removeItem "NVGoggles_OPFOR";
+			_x unassignItem "NVGoggles_INDEP";
+			_x removeItem "NVGoggles_INDEP";
+		};
+		if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+			_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+		};
 	} forEach units _spawnedGrp;
 
 	_lz = [_pos] call KOL_fnc_findNearestLZ;

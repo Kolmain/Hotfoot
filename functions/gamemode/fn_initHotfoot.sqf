@@ -45,6 +45,9 @@ if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
 		_x removeItem "NVGoggles_OPFOR";
 		_x unassignItem "NVGoggles_INDEP";
 		_x removeItem "NVGoggles_INDEP";
+		if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+			_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+		};
 	} forEach allUnits;
 };
 

@@ -90,6 +90,14 @@ if (_dis > 1200) then {
 	_heliGrp setSpeedMode "NORMAL";
 
 	_lz = [_pos] call KOL_fnc_findNearestLZ;
+	{
+		if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+			_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+		};
+	} forEach _heliGrp;
+	if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+			_vehicle addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+	};
 	_heliDriver move _lz;
 	_heli flyInHeight 50;
 	_heli lock 3;
