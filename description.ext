@@ -20,6 +20,14 @@ respawnDialog = 1;
 respawnTemplates[] = {"MenuInventory","MenuPosition","Wave","Counter","KOL_Hotfoot"};
 respawnOnStart = 1;
 aikills = 0;
+corpseManagerMode = 1;
+corpseLimit = 15;
+corpseRemovalMinTime = 60;
+corpseRemovalMaxTime = 1200;
+wreckManagerMode = 1;
+wreckLimit = 15;
+wreckRemovalMinTime = 60;
+wreckRemovalMaxTime = 1200;
 
 #include "includes\CfgRespawnInventory.hpp"
 #include "includes\CfgCommunicationMenu.hpp"

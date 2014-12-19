@@ -30,7 +30,6 @@ switch (_grpSide) do {
 		_pos2 = getMarkerPos "arespawn_guerrila";
 	};
 };
-_respawnPos = [_grpSide, (leader _spawnedGrp)] spawn BIS_fnc_addRespawnPosition;
 if (isMultiplayer) then {
 	{
 		_x addMPEventHandler ["MPKilled", {_this spawn KOL_fnc_onUnitKilled}];

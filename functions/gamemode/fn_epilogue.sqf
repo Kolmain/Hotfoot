@@ -17,7 +17,7 @@ if (KOL_debug) then {
 	systemChat "EPILOGUE STARTED!";
 };
 [[[], {
-		if (isPlayer && (side player) in sideArray) then {
+		if (!isServer && hasInterface && (side player) in sideArray) then {
 			["Lost",[]] call BIS_fnc_showNotification;
 		} else {
 			["Won",[]] call BIS_fnc_showNotification;
@@ -105,7 +105,7 @@ if (KOL_debug) then {
 
 waitUntil {extractionsComplete == 2};
 	[[[], {
-		if (isPlayer && (side player) in sideArray) then {
+		if (!isServer && hasInterface && (side player) in sideArray) then {
 			_dis = player distance hardpoint;
 			if ((alive player) && (_dis > 1000)) then {
 				"failed_escaped" call BIS_fnc_endMission;

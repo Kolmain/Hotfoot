@@ -54,6 +54,7 @@ _amb = [] spawn KOL_fnc_createAmbientEnviroment;
 _gridMark = [] spawn KOL_fnc_gridMarkers;
 _ao = [aoTrig] spawn BIS_fnc_drawAO;
 _supports = [] spawn KOL_fnc_initPlayerSupports;
+_loadouts = [] spawn KOL_fnc_initPlayerLoadout;
 _rank = [player] spawn KOL_fnc_rankHandler;
 /*
 player createDiaryRecord ["Intel", ["Situation", "The captial of Altis, Pyrgos, is being assaulted by OPFOR infantry in order to seize a foothold for a counter offensive. Friendly forces are tasked with capturing and securing <marker name="city">Pyrgos</marker> before the OPFOR have the chance to."]];
