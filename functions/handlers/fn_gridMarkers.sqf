@@ -46,7 +46,7 @@ if (((side player) == (side _x)) && ((leader group _x) == _x) && (vehicle _x == 
             _name setMarkerTypeLocal "b_inf";
         };
         case east: {
-            _name setMarkerTypeLocal "i_inf";
+            _name setMarkerTypeLocal "n_inf";
         };
         case independent: {
             _name setMarkerTypeLocal "o_inf";
