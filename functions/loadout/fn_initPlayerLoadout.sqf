@@ -1,5 +1,4 @@
 _grpSide = _this select 0;
-_va = init_obj;
 switch (_grpSide) do {
     case west: {
 		_gear = [_grpSide, 'rifleman_west'] call BIS_fnc_addRespawnInventory;

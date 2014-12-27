@@ -5,7 +5,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_B_CombatUniform_mcam";
 		backpack = "";
-		weapons[] = {"arifle_MX_ACO_pointer_F","hgun_P07_F","Throw","Put"};
+		weapons[] = {"arifle_MX_ACO_F","hgun_P07_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","Chemlight_green","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","16Rnd_9x21_Mag","SmokeShell","SmokeShellGreen","Chemlight_green","HandGrenade","HandGrenade"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrier1_rgr","H_HelmetB","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -32,7 +32,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_B_CombatUniform_mcam_tshirt";
 		backpack = "";
-		weapons[] = {"arifle_MX_SW_pointer_F","hgun_P07_F","Throw","Put"};
+		weapons[] = {"arifle_MX_SW_F","hgun_P07_F","Throw","Put"};
 		magazines[] = {"16Rnd_9x21_Mag","100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag","100Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","HandGrenade","HandGrenade","SmokeShell","SmokeShellGreen","Chemlight_green","Chemlight_green"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrier2_rgr","H_HelmetB_grass","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -45,7 +45,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_B_CombatUniform_mcam";
 		backpack = "B_AssaultPack_rgr_LAT";
-		weapons[] = {"arifle_MX_ACO_pointer_F","launch_NLAW_F","hgun_P07_F","Throw","Put"};
+		weapons[] = {"arifle_MX_ACO_F","launch_NLAW_F","hgun_P07_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","Chemlight_green","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","16Rnd_9x21_Mag","SmokeShell","SmokeShellGreen","Chemlight_green","NLAW_F","NLAW_F"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrier2_rgr","H_HelmetB_sand","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -72,7 +72,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_B_CombatUniform_mcam_tshirt";
 		backpack = "B_AssaultPack_rgr_ReconExp";
-		weapons[] = {"arifle_MX_ACO_pointer_snds_F","hgun_P07_snds_F","Throw","Put"};
+		weapons[] = {"arifle_MX_ACO_snds_F","hgun_P07_snds_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","Chemlight_green","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","16Rnd_9x21_Mag","APERSMine_Range_Mag","APERSMine_Range_Mag","APERSMine_Range_Mag","MiniGrenade","MiniGrenade","SmokeShell","SmokeShellGreen","Chemlight_green","ClaymoreDirectionalMine_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag","APERSBoundingMine_Range_Mag","APERSBoundingMine_Range_Mag","APERSBoundingMine_Range_Mag","DemoCharge_Remote_Mag","SLAMDirectionalMine_Wire_Mag","SLAMDirectionalMine_Wire_Mag"};
 		items[] = {"FirstAidKit","MineDetector","ToolKit"};
 		linkedItems[] = {"V_Chestrig_rgr","H_Booniehat_mcamo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS"};
@@ -85,7 +85,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_B_CombatUniform_mcam";
 		backpack = "B_UAV_01_backpack_F";
-		weapons[] = {"arifle_MX_ACO_pointer_F","hgun_P07_F","Throw","Put"};
+		weapons[] = {"arifle_MX_ACO_F","hgun_P07_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","Chemlight_green","HandGrenade","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","30Rnd_65x39_caseless_mag","16Rnd_9x21_Mag","16Rnd_9x21_Mag","SmokeShell","SmokeShellGreen","Chemlight_green"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrierSpec_rgr","H_HelmetB","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","B_UavTerminal"};
@@ -102,7 +102,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_O_CombatUniform_ocamo";
 		backpack = "";
-		weapons[] = {"arifle_Katiba_ACO_pointer_F","hgun_Rook40_F","Throw","Put"};
+		weapons[] = {"arifle_Katiba_ACO_F","hgun_Rook40_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","Chemlight_red","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","16Rnd_9x21_Mag","16Rnd_9x21_Mag","HandGrenade","HandGrenade","SmokeShell","SmokeShellRed","Chemlight_red"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_HarnessO_brn","H_HelmetO_ocamo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -128,7 +128,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_O_CombatUniform_ocamo";
 		backpack = "";
-		weapons[] = {"LMG_Zafir_pointer_F","hgun_Rook40_F","Throw","Put"};
+		weapons[] = {"LMG_Zafir_F","hgun_Rook40_F","Throw","Put"};
 		magazines[] = {"16Rnd_9x21_Mag","16Rnd_9x21_Mag","HandGrenade","SmokeShell","SmokeShellRed","Chemlight_red","150Rnd_762x51_Box","150Rnd_762x51_Box","150Rnd_762x51_Box","HandGrenade","Chemlight_red"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_HarnessO_brn","H_HelmetO_ocamo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -169,7 +169,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_O_SpecopsUniform_ocamo";
 		backpack = "B_FieldPack_ocamo_ReconExp";
-		weapons[] = {"arifle_Katiba_ACO_pointer_snds_F","hgun_Rook40_snds_F","Throw","Put"};
+		weapons[] = {"arifle_Katiba_ACO_snds_F","hgun_Rook40_snds_F","Throw","Put"};
 		magazines[] = {"16Rnd_9x21_Mag","16Rnd_9x21_Mag","SmokeShell","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","APERSMine_Range_Mag","APERSMine_Range_Mag","APERSMine_Range_Mag","MiniGrenade","MiniGrenade","SmokeShellRed","Chemlight_red","Chemlight_red","APERSBoundingMine_Range_Mag","APERSBoundingMine_Range_Mag","APERSBoundingMine_Range_Mag","ClaymoreDirectionalMine_Remote_Mag","ClaymoreDirectionalMine_Remote_Mag","SLAMDirectionalMine_Wire_Mag","SLAMDirectionalMine_Wire_Mag","DemoCharge_Remote_Mag"};
 		items[] = {"FirstAidKit","ToolKit","MineDetector"};
 		linkedItems[] = {"V_HarnessOSpec_brn","H_HelmetSpecO_ocamo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","ItemGPS"};
@@ -181,7 +181,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_O_CombatUniform_ocamo";
 		backpack = "O_UAV_01_backpack_F";
-		weapons[] = {"arifle_Katiba_ACO_pointer_F","hgun_Rook40_F","Throw","Put"};
+		weapons[] = {"arifle_Katiba_ACO_F","hgun_Rook40_F","Throw","Put"};
 		magazines[] = {"30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","Chemlight_red","HandGrenade","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","30Rnd_65x39_caseless_green","16Rnd_9x21_Mag","16Rnd_9x21_Mag","HandGrenade","Chemlight_red","SmokeShell"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_TacVest_brn","H_HelmetO_ocamo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","O_UavTerminal"};
@@ -195,7 +195,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_I_CombatUniform";
 		backpack = "";
-		weapons[] = {"arifle_Mk20_ACO_pointer_F","hgun_ACPC2_F","Throw","Put"};
+		weapons[] = {"arifle_Mk20_ACO_F","hgun_ACPC2_F","Throw","Put"};
 		magazines[] = {"30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","9Rnd_45ACP_Mag","9Rnd_45ACP_Mag","HandGrenade","HandGrenade","SmokeShell","SmokeShellGreen","Chemlight_green","Chemlight_green"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrierIA1_dgtl","H_HelmetIA","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -223,7 +223,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_I_CombatUniform_shortsleeve";
 		backpack = "";
-		weapons[] = {"LMG_Mk200_pointer_F","hgun_ACPC2_F","Throw","Put"};
+		weapons[] = {"LMG_Mk200_F","hgun_ACPC2_F","Throw","Put"};
 		magazines[] = {"9Rnd_45ACP_Mag","9Rnd_45ACP_Mag","HandGrenade","SmokeShell","SmokeShellGreen","Chemlight_green","200Rnd_65x39_cased_Box","200Rnd_65x39_cased_Box","HandGrenade","Chemlight_green"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrierIA2_dgtl","H_HelmetIA_camo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -236,7 +236,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_I_CombatUniform";
 		backpack = "I_Fieldpack_oli_LAT";
-		weapons[] = {"arifle_Mk20_ACO_pointer_F","launch_NLAW_F","hgun_ACPC2_F","Throw","Put"};
+		weapons[] = {"arifle_Mk20_ACO_F","launch_NLAW_F","hgun_ACPC2_F","Throw","Put"};
 		magazines[] = {"30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","9Rnd_45ACP_Mag","9Rnd_45ACP_Mag","SmokeShell","SmokeShellGreen","Chemlight_green","Chemlight_green","NLAW_F","NLAW_F"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrierIA2_dgtl","H_HelmetIA","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio"};
@@ -277,7 +277,7 @@ class CfgRespawnInventory {
 		// Exported from Arsenal by Kolmain
 		uniformClass = "U_I_CombatUniform";
 		backpack = "I_UAV_01_backpack_F";
-		weapons[] = {"arifle_Mk20_ACO_pointer_F","hgun_ACPC2_F","Throw","Put"};
+		weapons[] = {"arifle_Mk20_ACO_F","hgun_ACPC2_F","Throw","Put"};
 		magazines[] = {"30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","30Rnd_556x45_Stanag","9Rnd_45ACP_Mag","9Rnd_45ACP_Mag","HandGrenade","HandGrenade","SmokeShell","SmokeShellGreen","Chemlight_green","Chemlight_green"};
 		items[] = {"FirstAidKit"};
 		linkedItems[] = {"V_PlateCarrierIA2_dgtl","H_HelmetIA_camo","G_Tactical_Black","ItemMap","ItemCompass","ItemWatch","ItemRadio","I_UavTerminal"};

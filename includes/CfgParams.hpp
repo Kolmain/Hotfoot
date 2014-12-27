@@ -82,9 +82,9 @@ class Params
 	class aiSupportTime
 	{
 		title = "Time Between AI Support Requests";
-		texts[] = {"1 minute","3 minutes", "5 minutes", "7 minutes", "10 minutes"};
-		values[] = {60, 180, 300, 420, 600};
-		default = 60;
+		texts[] = {"Disabled", "1 minute","3 minutes", "5 minutes", "7 minutes", "10 minutes"};
+		values[] = {0, 60, 180, 300, 420, 600};
+		default = 300;
 	};
 	class supportPointIncrement
 	{
@@ -111,5 +111,12 @@ class Params
 		texts[] = {"Off","On"};
 		values[] = {0, 1};
 		default = 0;
+	};
+	class kol_debug
+	{
+		title = "Debug";
+		texts[] = {"Off","On"};
+		values[] = {0, 1};
+		default = 1;
 	};
 };

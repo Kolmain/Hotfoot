@@ -1,6 +1,6 @@
 private ["_callingSide","_waitTime","_sleep","_callSupport","_callers","_sides","_caller","_support"];
 _callingSide = _this select 0;
-if (_callingSide == independent) then {_grpSide = resistance;};
+if (_callingSide == independent) then {_callingSide = resistance;};
 _waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
 _sleep = _waitTime + (random _waitTime);
 //_callSupport = [true, false] call BIS_fnc_selectRandom; //returns one of the variables
@@ -49,4 +49,4 @@ if (KOL_debug) then {
 
 sleep _sleep;
 
-if (!hotfoot_epilogue) then {[] spawn KOL_fnc_aiSupportHandler};
+if (!hotfoot_epilogue) then {[_callingSide] spawn KOL_fnc_aiSupportHandler};

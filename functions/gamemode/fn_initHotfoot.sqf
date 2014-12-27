@@ -13,6 +13,11 @@ if ((isServer && !HC) or (HC && (player == headlessClient))) then {
 				[west] spawn KOL_fnc_createRespawnableAiGroup;
 				sleep 10;
 			};
+			if !(("aiSupportTime" call BIS_fnc_getParamValue) == 0) then {
+				_waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
+				sleep _waitTime;
+				_ret = [west] spawn KOL_fnc_aiSupportHandler;
+			};
 		};
 	};
 	_empty = [] spawn {
@@ -22,6 +27,11 @@ if ((isServer && !HC) or (HC && (player == headlessClient))) then {
 			{
 				[east] spawn KOL_fnc_createRespawnableAiGroup;
 				sleep 10;
+			};
+			if !(("aiSupportTime" call BIS_fnc_getParamValue) == 0) then {
+				_waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
+				sleep _waitTime;
+				_ret = [east] spawn KOL_fnc_aiSupportHandler;
 			};
 		};
 	};
@@ -33,23 +43,31 @@ if ((isServer && !HC) or (HC && (player == headlessClient))) then {
 				[independent] spawn KOL_fnc_createRespawnableAiGroup;
 				sleep 10;
 			};
+			if !(("aiSupportTime" call BIS_fnc_getParamValue) == 0) then {
+				_waitTime = "aiSupportTime" call BIS_fnc_getParamValue;
+				sleep _waitTime;
+				_ret = [independent] spawn KOL_fnc_aiSupportHandler;
+			};
 		};
 	};
 };
 
-if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
-	{
+
+{
+	if (("nvgs" call BIS_fnc_getParamValue) == 1) then {
 		_x unassignItem "NVGoggles";
 		_x removeItem "NVGoggles";
 		_x unassignItem "NVGoggles_OPFOR";
 		_x removeItem "NVGoggles_OPFOR";
 		_x unassignItem "NVGoggles_INDEP";
 		_x removeItem "NVGoggles_INDEP";
-		if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
-			_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
-		};
-	} forEach allUnits;
-};
+	};
+	if (("weaponFX" call BIS_fnc_getParamValue) == 1) then {
+		_x addEventHandler ["Fired", {_this execVM "scripts\L_Twitch.sqf";}];
+	};
+} forEach allUnits;
+
+
 
 {
 	if (!(_x isKindOf "Man")) then {

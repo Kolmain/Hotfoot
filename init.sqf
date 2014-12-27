@@ -15,10 +15,16 @@ _west_active = "west_active" call BIS_fnc_getParamValue;
 _east_active = "east_active" call BIS_fnc_getParamValue;
 _indep_active = "indep_active" call BIS_fnc_getParamValue;
 _weaponFX = "weaponFX" call BIS_fnc_getParamValue;
+_debug = "kol_debug" call BIS_fnc_getParamValue;
 HC = false;
 west_active = false;
 east_active = false;
 indep_active = false;
+if (_debug > 0) then {
+	KOL_debug = true;
+} else {
+	KOL_debug = false;
+};
 if (_weaponFX > 0) then {
 	weaponFX = true;
 } else {
